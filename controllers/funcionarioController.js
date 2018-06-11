@@ -24,7 +24,7 @@ function adicionarFuncionario(req, callback) {
 function iniciarSessao(req, callback) {
     let nome = req.sanitize(req.body.div.form.nome);
     let pass = req - sanitize(req.body.div.form.pass);
-
+    
 }
 
 exports.adicionarFuncionario = adicionarFuncionario;
