@@ -13,4 +13,4 @@ class TipoFuncionario{
     }
 }
 
-module.Exports = TipoFuncionario;
+module.exports = TipoFuncionario;

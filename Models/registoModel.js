@@ -24,4 +24,4 @@ class Registo{
 
 }
 
-module.Exports = Registo;
+module.exports = Registo;

@@ -43,4 +43,4 @@ class Servico{
     }
 }
 
-module.Exports = Servico;
+module.exports = Servico;

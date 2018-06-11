@@ -40,4 +40,4 @@ class Paciente{
     }
 }
 
-module.Exports = Paciente;
+module.exports = Paciente;
