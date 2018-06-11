@@ -7,19 +7,19 @@ class Registo{
     }
 
     get idRegisto(){
-        return idRegisto;
+        return this._idRegisto;
     }
 
     get dataEntrada(){
-        return dataEntrada;
+        return this._dataEntrada;
     }
 
     get dataSaida(){
-        return dataSaida;
+        return this._dataSaida;
     }
 
     get idPaciente(){
-        return idPaciente;
+        return this._idPaciente;
     }
 
 }
