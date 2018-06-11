@@ -1,6 +1,6 @@
 class Registo{
-    constructor(){
-        this._idRegisto = idRegisto;
+    constructor(dataEntrada, dataSaida, idPaciente){
+        this._idRegisto = null;
         this._dataEntrada = dataEntrada;
         this._dataSaida = dataSaida;
         this._idPaciente = idPaciente;

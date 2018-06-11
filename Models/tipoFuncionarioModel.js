@@ -1,15 +1,15 @@
 class TipoFuncionario{
-    constructor(idTipoFuncionario, descricao){
-        this._idTipoFuncionario = idTipoFuncionario;
+    constructor(descricao){
+        this._idTipoFuncionario = null;
         this._descricao = descricao;
     }
 
     get idTipoFuncionario(){
-        return idTipoFuncionario();
+        return this._idTipoFuncionario;
     }
 
     get descricao(){
-        return descricao;
+        return this._descricao;
     }
 }
 

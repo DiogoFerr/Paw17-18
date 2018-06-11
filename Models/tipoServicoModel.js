@@ -1,15 +1,20 @@
 class TipoServico{
-    constructor(idTipoServico, descricao){
-        this._idTipoServico = idTipoServico;
+    constructor(descricao, sigla){
+        this._idTipoServico = null;
         this._descricao = descricao;
+        this._sigla = sigla;
     }
 
     get idTipoServico(){
-        return idTipoServico;
+        return this._idTipoServico;
     }
 
     get descricao(){
-        return descricao;
+        return this._descricao;
+    }
+    
+    get sigla(){
+        return this._sigla;
     }
 }
 

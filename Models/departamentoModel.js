@@ -1,15 +1,15 @@
 class Departamento{
-    constructor(idDepartamento, nomeDepartamento){
-        this._idDepartamento = idDepartamento;
+    constructor(nomeDepartamento){
+        this._idDepartamento = null;
         this._nomeDepartamento = nomeDepartamento;
     }
 
     get idDepartamento(){
-        return idDepartamento;
+        return this._idDepartamento;
     }
 
     get nomeDepartamento(){
-        return nomeDepartamento;
+        return this._nomeDepartamento;
     }
 }
 

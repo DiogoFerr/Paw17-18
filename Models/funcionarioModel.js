@@ -1,44 +1,41 @@
-const mysqlModule = require("../node_modules/mysql");
-
 class Funcionario {
-
-    constructor(idFuncionario, nome, numFuncionario, password, estado, idDepartamento, idTipoFuncionario) {
-        this._idFuncionario = idFuncionario;
+    constructor(nome, numFuncionario, password, estado, idDepartamento, idTipoFuncionario) {
+        this._idFuncionario = null;
         this._nome = nome;
         this._numFuncionario = numFuncionario;
         this._password = password;
-        this._estado = estado;
+        this._estado = 0;
         this._idDepartamento = idDepartamento;
         this._idTipoFuncionario = idTipoFuncionario;
     }
 
     get idFuncionario() {
-        return idFuncionario;
+        return this._idFuncionario;
     }
 
     get nome(){
-        return nome;
+        return this._nome;
     }
 
     get numFuncionario(){
-        return numFuncionario;
+        return this._numFuncionario;
     }
 
     get password(){
-        return password;
+        return this._password;
     }
 
     get estado(){
-        return estado;
+        return this._estado;
     }
 
     get idDepartamento(){
-        return idDepartamento;
+        return this._idDepartamento;
     }
 
     get idTipoFuncionario(){
-        return idTipoFuncionario;
+        return this._idTipoFuncionario;
     }
 }
 
-module.exports = Funcionario;
+module.Exports = Funcionario;
