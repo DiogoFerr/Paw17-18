@@ -41,14 +41,13 @@ class Funcionario {
 
 
     static inserirFuncionario(funcionario, callback) {
-        //use mongo module for data insertion
-        var sql = ("INSERT INTO funcionario (idFuncionario, nome, numFuncionario, password, estado, idDepartamento, idTipoFuncionario)"
-            + "VALUES(null,'" + funcionario._nome + "'," + funcionario._numFuncionario + ", '" + funcionario._password + "'," + funcionario._estado + "," +
-            funcionario._idDepartamento + "," + funcionario._idTipoFuncionario + ")");
-
+        var sql = ("INSERT INTO funcionario (nome, numFuncionario, password, estado, Departamento_idDepartamento, TipoFuncionario_idTipoFuncionario)"
+            + "VALUES ('" + funcionario._nome + "', " + funcionario._numFuncionario + ", '" + funcionario._password + "', " + funcionario._estado + ", " +
+            funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
             console.log("1 record inserted");
+            callback(err);
         });
     }
 }

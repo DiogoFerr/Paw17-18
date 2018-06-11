@@ -1,8 +1,13 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+var expressSanitizer = require('express-sanitizer');
 
 const app = express();
 const path = require('path');
-
+//Middleware to handle POST requests
+app.use(bodyParser.urlencoded({ extended: true }));
+//Middleware to sanitize data
+app.use(expressSanitizer());
 const routes = require('./Routes/Route');
 app.set('views', path.join(__dirname, 'views'));
 app.use('/static', express.static(path.join(__dirname, 'utils')))
