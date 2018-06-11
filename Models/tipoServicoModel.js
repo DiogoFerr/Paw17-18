@@ -18,4 +18,4 @@ class TipoServico{
     }
 }
 
-module.Exports = TipoServico;
+module.exports = TipoServico;

@@ -38,4 +38,4 @@ class Funcionario {
     }
 }
 
-module.Exports = Funcionario;
+module.exports = Funcionario;
