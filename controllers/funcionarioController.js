@@ -12,10 +12,8 @@ function adicionarFuncionario(req, callback) {
     let pass2 = req.sanitize(req.body.password2);
     if (nome && num && departamento && tipo && pass == pass2) {
         let novoFun = new Funcionario(nome, num, pass, 0, departamento, tipo);
-        console.log(novoFun._nome);
         Funcionario.inserirFuncionario(novoFun, (err) => {
             callback(err);
-
         });
     } else {
         callback(false);
@@ -25,7 +23,17 @@ function adicionarFuncionario(req, callback) {
 function iniciarSessao(req, callback) {
     let nome = req.sanitize(req.body.div.form.nome);
     let pass = req - sanitize(req.body.div.form.pass);
-    
+
 }
 
-exports.adicionarFuncionario = adicionarFuncionario;
+function procurarUtilizadores(req, callback) {
+    Funcionario.procurarUtilizadores((err, result) => {
+
+    })
+
+}
+
+exports = {
+    add = adicionarFuncionario;
+    procurar = procurarUtilizadores;
+}

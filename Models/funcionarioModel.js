@@ -46,9 +46,15 @@ class Funcionario {
             funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
-            console.log("1 record inserted");
             callback(err);
         });
+    }
+
+    static procurarUtilizadores(callback) {
+        var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
+        callback = mySqlModule.query(sql, function (err, result) {
+            if (err) throw err;
+        })
     }
 }
 

@@ -5,40 +5,9 @@ block content
       tr
         th Nome
         th Acção
-      tr
-        td Diogo
-        td
-          a(href="") Eliminar
-      tr
-        td Pedro
-        td
-          a(href="") Eliminar
-      tr
-        td Vitor
-        td
-          a(href="") Eliminar
-      tr
-        td Diogo
-        td
-          a(href="")  Eliminar
-      tr
-        td Pedro
-        td
-          a(href="") Eliminar
-      tr
-        td Vitor
-        td
-          a(href="") Eliminar
-      tr
-        td Diogo
-        td
-          a(href="")  Eliminar
-      tr
-        td Pedro
-        td
-          a(href="") Eliminar
-      tr
-        td Vitor
-        td
-          a(href="") Eliminar
+      each val, index in ['zero', 'one', 'two']
+        tr
+          td Diogo
+          td 
+            a(href="") Eliminar
     a(class='button' href='novoRegisto') Novo Registo
