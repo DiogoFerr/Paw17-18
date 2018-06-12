@@ -1,0 +1,31 @@
+extends layout
+block content
+    h2 Novo Paciente
+    form(method="POST")
+      label
+        | NIF 
+        input(type="text" name="nif")
+      label
+        | Nome
+        input(type="text" name="nome")
+      label
+        | Data Nascimento
+        input(type="date" name="dataNascimento")
+      label
+        | Género
+        select(name="tipo")
+          option(value="M") Masculino
+          option(value="F") Feminino
+      label
+        | Rua
+        input(type="text" name="rua")
+      label
+        | Concelho
+        input(type="text" name="concelho")
+              label
+        | Distrito
+        input(type="text" name="distrito")
+              label
+        | Pais
+        input(type="text" name="pais")
+      button(name="Registar" value="Registar") Registar Paciente
