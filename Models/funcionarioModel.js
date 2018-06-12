@@ -52,8 +52,10 @@ class Funcionario {
 
     static procurarUtilizadores(callback) {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
-        callback = mySqlModule.query(sql, function (err, result) {
+        mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
+            console.log(result);
+            callback(err);
         })
     }
 }

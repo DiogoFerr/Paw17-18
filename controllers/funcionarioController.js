@@ -27,13 +27,10 @@ function iniciarSessao(req, callback) {
 }
 
 function procurarUtilizadores(req, callback) {
-    Funcionario.procurarUtilizadores((err, result) => {
-
+    Funcionario.procurarUtilizadores((err, result)=>{
+        console.log(result);
     })
 
 }
-
-exports = {
-    add = adicionarFuncionario;
-    procurar = procurarUtilizadores;
-}
+exports.procurarUtilizadores = procurarUtilizadores;
+exports.adicionarFuncionario = adicionarFuncionario;
