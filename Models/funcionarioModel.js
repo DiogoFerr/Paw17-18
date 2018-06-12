@@ -44,11 +44,25 @@ class Funcionario {
         var sql = ("INSERT INTO funcionario (nome, numFuncionario, password, estado, Departamento_idDepartamento, TipoFuncionario_idTipoFuncionario)"
             + "VALUES ('" + funcionario._nome + "', " + funcionario._numFuncionario + ", '" + funcionario._password + "', " + funcionario._estado + ", " +
             funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
+
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
             callback(err);
         });
     }
+
+    static verificaLogIn(funcionario, callback) {
+        var sql = ("SELECT password FROM funcionario WHERE numFuncionario =" + funcionario._numFuncionario);
+        mySqlModule.query(sql, function (err, result) {
+            if (err) throw err;
+            callback(err);
+        });
+        if (result[0] == funcionario._password) {
+            return true;
+        }
+    }
+
+    
 
     static procurarUtilizadores(callback) {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");

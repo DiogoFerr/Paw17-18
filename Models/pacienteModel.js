@@ -1,8 +1,10 @@
 const mysqlModule = require("./mysqlModule");
 
 class Paciente{
-    constructor(nome, dataNascimento, genero, rua, concelho, distrito, pais){
+    constructor(NIF, nome, dataNascimento, genero, rua, concelho, distrito, pais){
         this._idPaciente = null;
+        this._NIF = NIF;
+        this._nome = nome;
         this._dataNascimento = dataNascimento;
         this._genero = genero;
         this._rua = rua;
@@ -13,6 +15,14 @@ class Paciente{
 
     get idPaciente(){
         return this._id;
+    }
+
+    get NIF(){
+        return this._NIF;
+    }
+
+    get nome(){
+        return this._nome;
     }
 
     get dataNascimento(){
