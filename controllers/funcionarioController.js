@@ -27,8 +27,9 @@ function iniciarSessao(req, callback) {
 }
 
 function procurarUtilizadores(req, callback) {
-    Funcionario.procurarUtilizadores((err, result)=>{
+    Funcionario.procurarUtilizadores((err, result) => {
         console.log(result);
+        callback(err,result);
     })
 
 }

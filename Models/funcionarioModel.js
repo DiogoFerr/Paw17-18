@@ -54,10 +54,8 @@ class Funcionario {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
-            console.log(result);
-            callback(err);
+            callback(err, result);
         })
     }
 }
-
 module.exports = Funcionario;

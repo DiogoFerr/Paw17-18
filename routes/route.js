@@ -9,17 +9,16 @@ router.get('/index', function (req, res) {
     res.render('index');
 });
 router.get('/admin', function (req, res) {
-    let data;
-    data = FuncController.procurarUtilizadores(req, (err) => {
+    let data = FuncController.procurarUtilizadores(res, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            console.log(data);
-            res.render("admin",data );
+            console.log();
+            res.render("admin");
         }
     });
 });
-router.get('/novoRegisto', function (req, res) {
+router.get('/novoRegisto', function (res) {
     res.render('novoRegisto');
 });
 
