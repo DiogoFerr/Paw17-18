@@ -74,3 +74,14 @@ class Funcionario {
     }
 }
 module.exports = Funcionario;
+
+module.exports.getUserById = (id, callback) => {
+    console.log("estas ai?");
+    var sql = ("SELECT * FROM funcionario WHERE idFuncionario =" + id);
+    mySqlModule.query(sql, callback);
+}
+
+module.exports.getUserPassword = (id, callback) => {
+    var sql = ("SELECT * FROM funcionario WHERE idFuncionario =" + id);
+    mySqlModule.query(sql, callback);
+}
