@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const LocalStrategy = require('passport-local').Strategy;
 const FuncController = require("../Controllers/funcionarioController");
 
 router.get('/', function (req, res) {
