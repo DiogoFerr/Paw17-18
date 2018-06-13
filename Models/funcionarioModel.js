@@ -79,8 +79,15 @@ module.exports.getUserById = (id, callback) => {
     mySqlModule.query(sql, callback);
 }
 
+
 module.exports.getUserPassword = (id, callback) => {
     var sql = ("SELECT * FROM funcionario WHERE numFuncionario =" + id);
     mySqlModule.query(sql, callback);
-    console.log(callback);
 }
+
+/*
+module.exports.getUserPassword = (id, callback) => {
+    var x = mySqlModule.query("CALL getFuncById(1)", callback);
+}
+*/
+
