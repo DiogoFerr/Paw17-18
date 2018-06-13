@@ -8,22 +8,26 @@ const Funcionario = require('../models/funcionarioModel');
 router.post('/login',
     passport.authenticate('local', { successRedirect: '/novoPaciente', failureRedirect: '/' }),
     (req, res) => {
+        console.log("FODASSE");
         res.redirect('/novoPaciente');
 });
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
         console.log("Entrou");
-        Funcionario.getUserById(numFunc, function (err, user) {
+        Funcionario.getUserById(username, function (err, user) {
             console.log(user);
             if (err) return done(err);
             if (!user) {
+                console.log("Erro");
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            Funcionario.getUserPassword(numFunc, function (err, user) {
-                if (user.password === password) {
+            Funcionario.getUserPassword(username, function (err, user) {
+                console.log(user[0].password);
+                if (user[0].password === password) {
                     return done(null, user);
                 }
+                console.log("password errada");
                 return done(null, false, { message: 'Incorrect password.' });
             });
         });
