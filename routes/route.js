@@ -11,26 +11,35 @@ router.get('/index', function (req, res) {
     res.render('index');
 });
 
+router.delete('/admin', function (req, res) {
+    FuncController.deleteFuncionario(res, (err) => {
+
+    })
+})
+
 router.get('/admin', function (req, res) {
-    let data = FuncController.procurarUtilizadores(res, (err) => {
+    FuncController.procurarUtilizadores(res, (err, result) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            console.log();
-            res.render("admin");
+            res.render("admin", {
+                funcionarios: result
+            });
         }
     });
+
 });
+
 router.get('/novoRegisto', function (req, res) {
     res.render('novoRegisto');
 });
 
 router.post('/novoRegisto', function (req, res) {
-    let data = FuncController.adicionarFuncionario(req, (err) => {
+    FuncController.adicionarFuncionario(req, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            res.render("admin");
+            res.redirect("admin");
         }
     });
 })

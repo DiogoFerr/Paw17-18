@@ -41,14 +41,15 @@ class Funcionario {
 
 
     static inserirFuncionario(funcionario, callback) {
+
         var sql = ("INSERT INTO funcionario (nome, numFuncionario, password, estado, Departamento_idDepartamento, TipoFuncionario_idTipoFuncionario)"
             + "VALUES ('" + funcionario._nome + "', " + funcionario._numFuncionario + ", '" + funcionario._password + "', " + funcionario._estado + ", " +
             funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
-
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
-            callback(err);
+            callback(err);            
         });
+        
     }
 
     static verificaLogIn(funcionario, callback) {
@@ -62,7 +63,7 @@ class Funcionario {
         }
     }
 
-    
+
 
     static procurarUtilizadores(callback) {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
