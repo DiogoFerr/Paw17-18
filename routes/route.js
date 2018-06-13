@@ -21,7 +21,7 @@ router.get('/admin', function (req, res) {
         }
     });
 });
-router.get('/novoRegisto', function (res) {
+router.get('/novoRegisto', function (req, res) {
     res.render('novoRegisto');
 });
 
