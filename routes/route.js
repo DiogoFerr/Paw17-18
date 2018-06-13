@@ -26,7 +26,7 @@ router.get('/deleteFuncionario', function (req, res) {
 })
 
 router.get('/admin', function (req, res) {
-    FuncController.procurarUtilizadores(res, (err, result) => {
+    FuncController.procurarUtilizadores((err, result) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
