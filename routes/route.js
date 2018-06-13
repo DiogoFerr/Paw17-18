@@ -10,6 +10,10 @@ router.get('/index', function (req, res) {
     res.render('index');
 });
 
+router.get('/novoPaciente', function (req, res) {
+    res.render('novoPaciente');
+});
+
 router.get('/deleteFuncionario', function (req, res) {
     let id = req.query.id;
     FuncController.deleteFuncionario(id, (err, result) => {

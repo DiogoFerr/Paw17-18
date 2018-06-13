@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var expressSanitizer = require('express-sanitizer');
+const expressValidator = require('express-validator');
 
 const app = express();
 
@@ -10,8 +11,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const path = require('path');
-const routes = require('./Routes/Route');
-
+const routes = require('./routes/route');
+const users = require('./routes/users');
 //Middleware to handle POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
 //Middleware to sanitize data
@@ -26,6 +27,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/static', express.static(path.join(__dirname, 'utils')))
 app.set('view engine', 'pug');
 
+
+app.use('/users', users);
 app.use('/', routes);
 
 app.listen(8080, () => {

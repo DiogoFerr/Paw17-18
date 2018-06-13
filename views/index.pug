@@ -1,10 +1,10 @@
 extends layout
 block content
-    form(method="POST")
-    label
-        | Utilizador
-        input(type="text")
-    label
-        | Palavra-Passe
-        input(type="password")
-    button(name="login" value="login") Login
+    form(method="POST" action="/users/login")
+        label
+            | Utilizador
+            input(type="text" name="numFunc")
+        label
+            | Palavra-Passe
+            input(type="password" name="password")
+        button(name="login" value="login") Login
