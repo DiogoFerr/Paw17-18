@@ -47,9 +47,9 @@ class Funcionario {
             funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
-            callback(err);            
+            callback(err);
         });
-        
+
     }
 
     static verificaLogIn(funcionario, callback) {

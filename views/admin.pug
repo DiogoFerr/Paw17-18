@@ -7,7 +7,7 @@ block content
         th Acção
       each funcionario in funcionarios
         tr
-          td #{funcionario.nome}
+          td  #{funcionario.nome}
           td 
-            a(href="") Eliminar
+            a(href="/deleteFuncionario?id=" + funcionario.idFuncionario) Eliminar
     a(class='button' href='novoRegisto') Novo Registo

@@ -23,10 +23,13 @@ function adicionarFuncionario(req, callback) {
 
 function iniciarSessao(req, callback) {
     let nome = req.sanitize(req.body.div.form.nome);
-    let pass = req - sanitize(req.body.div.form.pass);
+    let pass = req.sanitize(req.body.div.form.pass);
 }
 
-
+function deleteFuncionario(id,callback){
+    console.log(id);
+    
+}
 
 
 function procurarUtilizadores(req, callback) {
@@ -38,3 +41,4 @@ function procurarUtilizadores(req, callback) {
 }
 exports.procurarUtilizadores = procurarUtilizadores;
 exports.adicionarFuncionario = adicionarFuncionario;
+exports.deleteFuncionario = deleteFuncionario;

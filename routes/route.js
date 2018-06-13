@@ -11,10 +11,15 @@ router.get('/index', function (req, res) {
     res.render('index');
 });
 
-router.delete('/admin', function (req, res) {
-    FuncController.deleteFuncionario(res, (err) => {
-
-    })
+router.get('/deleteFuncionario', function (req, res) {
+    let id = req.query.id;
+    FuncController.deleteFuncionario(id, (err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("admin");
+        }
+    });
 })
 
 router.get('/admin', function (req, res) {
