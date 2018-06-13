@@ -10,7 +10,7 @@ router.post('/login',
     (req, res) => {
         console.log("FODASSE");
         res.redirect('/novoPaciente');
-});
+    });
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -33,5 +33,15 @@ passport.use(new LocalStrategy(
         });
     })
 );
+
+passport.serializeUser(function (user, done) {
+    done(null, user[0].numFuncionario);
+});
+
+passport.deserializeUser(function (id, done) {
+    Funcionario.getUserById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 module.exports = router;
