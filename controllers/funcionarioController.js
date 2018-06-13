@@ -26,17 +26,13 @@ function iniciarSessao(req, callback) {
     let pass = req.sanitize(req.body.div.form.pass);
 }
 
-function deleteFuncionario(id,callback){
-    console.log(id);
-    
+function deleteFuncionario(id, callback) {
+    Funcionario.deleteFuncionario(id, callback);
 }
 
 
-function procurarUtilizadores(req, callback) {
-    Funcionario.procurarUtilizadores((err, result) => {
-        if (err) throw err;
-        callback(err, result);
-    });
+function procurarUtilizadores(callback) {
+    Funcionario.procurarUtilizadores(callback);
 
 }
 exports.procurarUtilizadores = procurarUtilizadores;

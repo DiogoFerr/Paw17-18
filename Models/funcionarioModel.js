@@ -51,6 +51,10 @@ class Funcionario {
         });
 
     }
+    static deleteFuncionario(id, callback) {
+        var sql = ("DELETE FROM funcionario WHERE idFuncionario =" + id);
+        mySqlModule.query(sql, callback);
+    }
 
     static verificaLogIn(funcionario, callback) {
         var sql = ("SELECT password FROM funcionario WHERE numFuncionario =" + funcionario._numFuncionario);
@@ -62,15 +66,9 @@ class Funcionario {
             return true;
         }
     }
-
-
-
     static procurarUtilizadores(callback) {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
-        mySqlModule.query(sql, function (err, result) {
-            if (err) throw err;
-            callback(err, result);
-        })
+        mySqlModule.query(sql, callback);
     }
 }
 module.exports = Funcionario;
