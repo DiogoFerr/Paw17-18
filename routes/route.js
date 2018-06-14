@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require('passport');
 const FuncController = require("../Controllers/funcionarioController");
 
 router.get('/', function (req, res) {
@@ -11,7 +12,11 @@ router.get('/index', function (req, res) {
 });
 
 router.get('/novoPaciente', function (req, res) {
-    res.render('novoPaciente');
+    if (req.user[0].TipoFuncionario_idTipoFuncionario == 1) {
+        res.render('novoPaciente');
+    } else {
+        res.redirect('admin');
+    }
 });
 
 router.get('/deleteFuncionario', function (req, res) {

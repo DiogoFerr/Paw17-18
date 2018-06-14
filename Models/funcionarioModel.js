@@ -1,14 +1,14 @@
 const mySqlModule = require('./dbModel');
 
 class Funcionario {
-    constructor(nome, numFuncionario, password, estado, idDepartamento, idTipoFuncionario) {
+    constructor(nome, numFuncionario, password, estado, idDepartamento,  TipoFuncionario_idTipoFuncionario) {
         this._idFuncionario = null;
         this._nome = nome;
         this._numFuncionario = numFuncionario;
         this._password = password;
         this._estado = 0;
         this._idDepartamento = idDepartamento;
-        this._idTipoFuncionario = idTipoFuncionario;
+        this._TipoFuncionario_idTipoFuncionario =  TipoFuncionario_idTipoFuncionario;
     }
 
     get idFuncionario() {
@@ -35,8 +35,8 @@ class Funcionario {
         return this._idDepartamento;
     }
 
-    get idTipoFuncionario() {
-        return this._idTipoFuncionario;
+    get  TipoFuncionario_idTipoFuncionario() {
+        return this._TipoFuncionario_idTipoFuncionario;
     }
 
 
@@ -44,7 +44,7 @@ class Funcionario {
 
         var sql = ("INSERT INTO funcionario (nome, numFuncionario, password, estado, Departamento_idDepartamento, TipoFuncionario_idTipoFuncionario)"
             + "VALUES ('" + funcionario._nome + "', " + funcionario._numFuncionario + ", '" + funcionario._password + "', " + funcionario._estado + ", " +
-            funcionario._idDepartamento + ", " + funcionario._idTipoFuncionario + ")");
+            funcionario._idDepartamento + ", " + funcionario._TipoFuncionario_idTipoFuncionario + ")");
         mySqlModule.query(sql, function (err, result) {
             if (err) throw err;
             callback(err);
@@ -74,7 +74,6 @@ class Funcionario {
 module.exports = Funcionario;
 
 module.exports.getUserById = (id, callback) => {
-    console.log("estas ai?");
     var sql = ("SELECT * FROM funcionario WHERE numFuncionario =" + id);
     mySqlModule.query(sql, callback);
 }
