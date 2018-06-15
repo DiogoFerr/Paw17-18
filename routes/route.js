@@ -12,16 +12,6 @@ router.get('/index', function (req, res) {
     res.render('index');
 });
 
-router.get('/novoPaciente', function (req, res) {
-    PacienteController.adicionarPaciente(req, (err) => {
-        if (err || err === false) {
-            res.end("Erro: " + err);
-        } else {
-            res.redirect("/novoPaciente");
-        }
-    });
-});
-
 router.get('/deleteFuncionario', function (req, res) {
     let id = req.query.id;
     FuncController.deleteFuncionario(id, (err, result) => {
@@ -61,4 +51,17 @@ router.post('/novoRegisto', function (req, res) {
     });
 });
 
+router.get('/novoPaciente', function (req, res) {
+    res.render('novoPaciente');
+})
+
+router.post('/novoPaciente', function (req, res) {
+    PacienteController.adicionarPaciente(req, (err) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("/novoPaciente");
+        }
+    });
+});
 module.exports = router;
