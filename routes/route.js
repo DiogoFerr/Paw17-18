@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const passport = require('passport');
 const FuncController = require("../Controllers/funcionarioController");
+const PacienteController = require("../Controllers/pacienteController");
 
 router.get('/', function (req, res) {
-    res.render('novo');
+    res.redirect('index');
 });
 
 router.get('/index', function (req, res) {
@@ -12,11 +13,13 @@ router.get('/index', function (req, res) {
 });
 
 router.get('/novoPaciente', function (req, res) {
-    if (req.user[0].TipoFuncionario_idTipoFuncionario == 1) {
-        res.render('novoPaciente');
-    } else {
-        res.redirect('admin');
-    }
+    PacienteController.adicionarPaciente(req, (err) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("/novoPaciente");
+        }
+    });
 });
 
 router.get('/deleteFuncionario', function (req, res) {
@@ -47,6 +50,7 @@ router.get('/novoRegisto', function (req, res) {
     res.render('novoRegisto');
 });
 
+
 router.post('/novoRegisto', function (req, res) {
     FuncController.adicionarFuncionario(req, (err) => {
         if (err || err === false) {
@@ -55,10 +59,6 @@ router.post('/novoRegisto', function (req, res) {
             res.redirect("admin");
         }
     });
-})
-
-router.get('/novo'), function (req, res) {
-    res.render('novo');
-}
+});
 
 module.exports = router;

@@ -1,7 +1,7 @@
-const mysqlModule = require("./mysqlModule");
+const mysqlModule = require('./dbModel');
 
-class Paciente{
-    constructor(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais){
+class Paciente {
+    constructor(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais) {
         this._idPaciente = null;
         this._NUS = NUS;
         this._nome = nome;
@@ -13,41 +13,49 @@ class Paciente{
         this._pais = pais;
     }
 
-    get idPaciente(){
+    get idPaciente() {
         return this._id;
     }
 
-    get NUS(){
+    get NUS() {
         return this._NUS;
     }
 
-    get nome(){
+    get nome() {
         return this._nome;
     }
 
-    get dataNascimento(){
+    get dataNascimento() {
         return this._dataNascimento;
     }
 
-    get genero(){
+    get genero() {
         return this._genero;
     }
 
-    get rua(){
+    get rua() {
         return this._rua;
     }
 
-    get concelho(){
+    get concelho() {
         return this._concelho;
     }
 
-    get distrito(){
+    get distrito() {
         return this._distrito;
     }
 
-    get pais(){
+    get pais() {
         return this._pais;
+    }
+
+    static inserirPaciente(paciente, callback) {
+        var sql = ("INSERT INTO paciente (NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais)"
+            + "VALUES ('" + paciente._NUS + "', " + paciente._nome + ", '" + paciente._dataNascimento + "', " + paciente._genero + ", " +
+            paciente._rua + ", " + paciente._concelho + ", " + paciente._distrito + ", " + paciete._pais + ")");
+        mySqlModule.query(sql, callback);
     }
 }
 
 module.exports = Paciente;
+

@@ -3,18 +3,8 @@ const { check, validationResult } = require('../node_modules/express-validator/c
 
 const Paciente = require("../models/pacienteModel");
 
-this._NIF = NIF;
-this._nome = nome;
-this._dataNascimento = dataNascimento;
-this._genero = genero;
-this._rua = rua;
-this._concelho = concelho;
-this._distrito = distrito;
-this._pais = pais;
-
-
 function adicionarPaciente(req, callback) {
-    let nif = req.sanitize(req.body.nif);
+    let NUS = req.sanitize(req.body.NUS);
     let nome = req.sanitize(req.body.nome);
     let dataNascimento = req.sanitize(req.body.dataNascimento);
     let genero = req.sanitize(req.body.genero);
@@ -23,11 +13,11 @@ function adicionarPaciente(req, callback) {
     let distrito = req.sanitize(req.body.distrito);
     let pais = req.sanitize(req.body.pais);
 
-    if (nif) {
-        let novoFun = new Paciente(nif, nome, dataNascimento, genero, rua, concelho, distrito, pais);
-        Paciente.inserirPaciente(novoFun, (err) => {
+    if (NUS && nome && dataNascimento && genero && genero && rua && concelho && distrito && pais) {
+        let novoPaciente = new Paciente(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais);
+            Paciente.inserirPaciente(novoPaciente, (err) => {
             callback(err);
-        });
+            });
     } else {
         callback(false);
     }
