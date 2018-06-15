@@ -13,17 +13,21 @@ router.post('/login',
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        Funcionario.getUserById(username, function (err, user) {
-            if (err) return done(err);
-            if (!user) {
-                console.log("Erro");
-                return done(null, false, { message: 'Incorrect username.' });
+        Funcionario.userExist(username, function (err, result) {
+            if (err) { return done(err); }
+            if (result[0].total === 0) {
+                console.log("Não existe esse utilizador");
+                return done(null, false, { message: 'User doesnt exist' });
+            } else {
+                Funcionario.getUserById(username, function (user, result) {
+                    if (result[0].password === password) {
+                        return done(null, result);
+                    } else {
+                        console.log("password errada");
+                        return done(null, false, { message: 'Incorrect password.' });
+                    }
+                });
             }
-            if (user[0].password === password) {
-                return done(null, user);
-            }
-            console.log("password errada");
-            return done(null, false, { message: 'Incorrect password.' });
         });
     }
 ));

@@ -4,7 +4,7 @@ const passport = require('passport');
 const FuncController = require("../Controllers/funcionarioController");
 
 router.get('/', function (req, res) {
-    res.redirect('/index');
+    res.render('novo');
 });
 
 router.get('/index', function (req, res) {
@@ -56,4 +56,9 @@ router.post('/novoRegisto', function (req, res) {
         }
     });
 })
+
+router.get('/novo'), function (req, res) {
+    res.render('novo');
+}
+
 module.exports = router;

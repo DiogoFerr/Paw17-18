@@ -1,14 +1,14 @@
 const mySqlModule = require('./dbModel');
 
 class Funcionario {
-    constructor(nome, numFuncionario, password, estado, idDepartamento,  TipoFuncionario_idTipoFuncionario) {
+    constructor(nome, numFuncionario, password, estado, idDepartamento, TipoFuncionario_idTipoFuncionario) {
         this._idFuncionario = null;
         this._nome = nome;
         this._numFuncionario = numFuncionario;
         this._password = password;
         this._estado = 0;
         this._idDepartamento = idDepartamento;
-        this._TipoFuncionario_idTipoFuncionario =  TipoFuncionario_idTipoFuncionario;
+        this._TipoFuncionario_idTipoFuncionario = TipoFuncionario_idTipoFuncionario;
     }
 
     get idFuncionario() {
@@ -35,7 +35,7 @@ class Funcionario {
         return this._idDepartamento;
     }
 
-    get  TipoFuncionario_idTipoFuncionario() {
+    get TipoFuncionario_idTipoFuncionario() {
         return this._TipoFuncionario_idTipoFuncionario;
     }
 
@@ -71,13 +71,18 @@ class Funcionario {
         mySqlModule.query(sql, callback);
     }
 }
+
 module.exports = Funcionario;
 
-module.exports.getUserById = (id, callback) => {
-    var sql = ("SELECT * FROM funcionario WHERE numFuncionario =" + id);
-    mySqlModule.query(sql, callback);
+module.exports.userExist = (id, result, callback) => {
+    var sql = ("SELECT COUNT(numFuncionario) AS total FROM funcionario WHERE numFuncionario =" + id);
+    mySqlModule.query(sql, result, callback);
 }
 
+module.exports.getUserById = (id, result, callback) => {
+    var sql = ("SELECT * FROM funcionario WHERE numFuncionario =" + id);
+    mySqlModule.query(sql, result, callback);
+}
 
 module.exports.getUserPassword = (id, callback) => {
     var sql = ("SELECT * FROM funcionario WHERE numFuncionario =" + id);
