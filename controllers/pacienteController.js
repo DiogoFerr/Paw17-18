@@ -12,7 +12,6 @@ function adicionarPaciente(req, callback) {
     let concelho = req.sanitize(req.body.concelho);
     let distrito = req.sanitize(req.body.distrito);
     let pais = req.sanitize(req.body.pais);
-    console.log("SSSSSSSSSS");
 
     if (NUS && nome && dataNascimento && genero && genero && rua && concelho && distrito && pais) {
         let novoPaciente = new Paciente(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais);
