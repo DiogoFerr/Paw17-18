@@ -15,12 +15,18 @@ function adicionarPaciente(req, callback) {
 
     if (NUS && nome && dataNascimento && genero && genero && rua && concelho && distrito && pais) {
         let novoPaciente = new Paciente(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais);
-            Paciente.inserirPaciente(novoPaciente, (err) => {
+        Paciente.inserirPaciente(novoPaciente, (err) => {
             callback(err);
-            });
+        });
     } else {
         callback(false);
     }
 }
 
+function procurarPacientes(callback) {
+    Paciente.procurarPacientes(callback);
+
+}
+
+exports.procurarPacientes = procurarPacientes;
 exports.adicionarPaciente = adicionarPaciente;

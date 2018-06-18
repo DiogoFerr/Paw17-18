@@ -64,4 +64,21 @@ router.post('/novoPaciente', function (req, res) {
         }
     });
 });
+
+router.get('/triagem', function (req, res) {
+    PacienteController.procurarPacientes((err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.render("triagem", {
+                pacientes: result
+            });
+        }
+    });
+
+});
+
+router.get('/perfilPaciente', function (req, res) {
+
+});
 module.exports = router;
