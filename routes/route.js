@@ -6,6 +6,7 @@ const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
+
 router.get('/', function (req, res) {
     res.redirect('index');
 });
@@ -89,6 +90,7 @@ router.post('/novoPaciente', function (req, res) {
 router.get('/triagem', function (req, res) {
     PacienteController.procurarPacientes((err, result) => {
         if (err || err === false) {
+            console.log("quebra aqui 1");
             res.end("Erro: " + err);
         } else {
             res.render("triagem", {
@@ -100,7 +102,17 @@ router.get('/triagem', function (req, res) {
 });
 
 router.get('/perfilPaciente', function (req, res) {
-
+    let NUS = req.query.NUS;
+    PacienteController.getUserByNUS(NUS, (err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            console.log(result[0]);
+            res.render("perfilPaciente", {
+                paciente: result[0]
+            });
+        }
+    });
 });
 
 router.get('/editarFuncionario', function (req, res) {

@@ -60,7 +60,21 @@ class Paciente {
         var sql = ("SELECT * FROM paciente");
         mysqlModule.query(sql, callback);
     }
+/*
+    static getUserByNUS(NUS,  callback) {
+        var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
+        mysqlModule.query(sql, result, callback);
+        console.log("EEEEEEEEEEEEEEEEEEEEEE");
+        console.log(result[0].NUS);
+    }
+    */
 }
 
 module.exports = Paciente;
 
+module.exports.getUserByNUS = (NUS, result, callback) => {
+    var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
+    mysqlModule.query(sql, result, callback);
+    console.log("EEEEEEEEEEEEEEEEEEEEEE");
+    console.log();
+}
