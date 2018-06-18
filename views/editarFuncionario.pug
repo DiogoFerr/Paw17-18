@@ -8,15 +8,13 @@ block content
       label
         | Departamento
         select(name="departamento")
-          option(value="1") Triagem
-          option(value="2") Consultas
-          option(value="3") Exames
+          each departamento in departamentos
+            option(value=departamento.idDepartamento) #{departamento.nomeDepartamento}
       label
         | Tipo
         select(name="tipo")
-          option(value="1") Medico
-          option(value="2") Administrado
-          option(value="3") Funcionario
+          each tipo in tipos
+            option(value=tipo.idTipoFuncionario) #{tipo.descricao}
       label
         | Palavra-Passe
         input(type="password" name="password")
