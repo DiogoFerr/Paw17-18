@@ -88,7 +88,6 @@ router.post('/novoPaciente', function (req, res) {
     });
 });
 
-<<<<<<< HEAD
 router.get('/triagem', function (req, res) {
     PacienteController.procurarPacientes((err, result) => {
         if (err || err === false) {
@@ -105,10 +104,9 @@ router.get('/triagem', function (req, res) {
 router.get('/perfilPaciente', function (req, res) {
 
 });
-=======
+
 router.get('/editarFuncionario', function (req, res) {
     let id = req.query.id;
     res.render('editarFuncionario', { id: id });
 })
->>>>>>> 7febae54abf0fa560e1288a54410f6729b668dca
 module.exports = router;
