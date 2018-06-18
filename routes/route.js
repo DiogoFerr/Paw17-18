@@ -158,6 +158,10 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
+<<<<<<< HEAD
+            console.log("tipos");
+=======
+>>>>>>> a9a146de0decf25b5f52eb13bbee189abef8be58
             tipos = result;
             res.render('editarFuncionario', {
                 id: id,
@@ -167,6 +171,8 @@ router.get('/editarFuncionario', function (req, res) {
 
         }
     });
+<<<<<<< HEAD
+=======
 })
 
 router.post('/editarFuncionario', function (req, res) {
@@ -174,6 +180,7 @@ router.post('/editarFuncionario', function (req, res) {
     FuncController.editarFuncionario(id, req, (err) => {
         redirectAdmin(res, err);
     })
+>>>>>>> a9a146de0decf25b5f52eb13bbee189abef8be58
 })
 
 
