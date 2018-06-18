@@ -8,7 +8,7 @@ const Funcionario = require('../models/funcionarioModel');
 
 
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/novoPaciente', failureRedirect: '/' })
+    passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/' })
 );
 
 passport.use(new LocalStrategy(

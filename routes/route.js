@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const passport = require('passport');
-const FuncController = require("../Controllers/funcionarioController");
-const PacienteController = require("../Controllers/pacienteController");
+const FuncController = require("../controllers/funcionarioController");
+const PacienteController = require("../controllers/pacienteController");
+const DepartamentoController = require("../controllers/departamentoController");
+const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
 router.get('/', function (req, res) {
     res.redirect('index');
@@ -37,7 +39,28 @@ router.get('/admin', function (req, res) {
 });
 
 router.get('/novoRegisto', function (req, res) {
-    res.render('novoRegisto');
+    let departamentos, tipos;
+    DepartamentoController.getDepartamentos((err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            console.log("departamentos");
+            departamentos = result;
+        }
+    });
+    TipoFuncController.getTipos((err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            console.log("tipos");
+            tipos = result;
+            res.render('novoRegisto', {
+                tipos: tipos,
+                departamentos: departamentos
+            });
+
+        }
+    });
 });
 
 
@@ -64,4 +87,9 @@ router.post('/novoPaciente', function (req, res) {
         }
     });
 });
+
+router.get('/editarFuncionario', function (req, res) {
+    let id = req.query.id;
+    res.render('editarFuncionario', { id: id });
+})
 module.exports = router;
