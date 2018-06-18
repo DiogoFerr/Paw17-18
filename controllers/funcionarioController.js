@@ -3,6 +3,9 @@ const { check, validationResult } = require('../node_modules/express-validator/c
 
 const Funcionario = require("../models/funcionarioModel");
 
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 function adicionarFuncionario(req, callback) {
     let nome = req.sanitize(req.body.nome);
     let num = req.sanitize(req.body.num);
@@ -12,10 +15,13 @@ function adicionarFuncionario(req, callback) {
     let pass2 = req.sanitize(req.body.password2);
 
     if (nome && num && departamento && tipo && pass == pass2) {
-        let novoFun = new Funcionario(nome, num, pass, 0, departamento, tipo);
-        Funcionario.inserirFuncionario(novoFun, (err) => {
-            callback(err);
+        bcrypt.hash(pass, saltRounds, function (err, hash) {
+            let novoFun = new Funcionario(nome, num, hash, 0, departamento, tipo);
+            Funcionario.inserirFuncionario(novoFun, (err) => {
+                callback(err);
+            });
         });
+
     } else {
         callback(false);
     }

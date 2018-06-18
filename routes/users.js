@@ -5,7 +5,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const LocalStrategy = require('passport-local').Strategy;
 const Funcionario = require('../models/funcionarioModel');
-
+const bcrypt = require('bcrypt');
 
 router.post('/login',
     passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/' })
@@ -20,12 +20,15 @@ passport.use(new LocalStrategy(
                 return done(null, false, { message: 'User doesnt exist' });
             } else {
                 Funcionario.getUserById(username, function (user, result) {
-                    if (result[0].password === password) {
-                        return done(null, result);
-                    } else {
-                        console.log("password errada");
-                        return done(null, false, { message: 'Incorrect password.' });
-                    }
+                    hash = result[0].password.toString();
+                    bcrypt.compare(password, hash, function (err, response) {
+                        if (response === true) {
+                            return done(null, result);
+                        } else {
+                            console.log("password errada");
+                            return done(null, false, { message: 'Incorrect password.' });
+                        }
+                    });
                 });
             }
         });
