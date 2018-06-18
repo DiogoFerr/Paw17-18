@@ -6,8 +6,6 @@ const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
-<<<<<<< HEAD
-=======
 function redirectAdmin(res,err) {
     if (err || err === false) {
         res.end("Erro: " + err);
@@ -15,7 +13,6 @@ function redirectAdmin(res,err) {
         res.redirect("admin");
     }
 }
->>>>>>> 0b7003991142fc39ed9e3d14154d5fd1d8d1e8a4
 
 router.get('/', function (req, res) {
     res.redirect('index');
