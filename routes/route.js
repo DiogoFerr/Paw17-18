@@ -6,7 +6,7 @@ const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
-function redirectAdmin(err) {
+function redirectAdmin(res,err) {
     if (err || err === false) {
         res.end("Erro: " + err);
     } else {
@@ -114,10 +114,7 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-<<<<<<< HEAD
             console.log("departamentos");
-=======
->>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
             departamentos = result;
         }
     });
@@ -125,10 +122,6 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-<<<<<<< HEAD
-            console.log("tipos");
-=======
->>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
             tipos = result;
             res.render('editarFuncionario', {
                 id: id,
@@ -138,16 +131,13 @@ router.get('/editarFuncionario', function (req, res) {
 
         }
     });
-<<<<<<< HEAD
-=======
 })
 
-
 router.post('/editarFuncionario', function (req, res) {
-    FuncController.editarFuncionario((err) => {
-        redirectAdmin(err);
+    let id = req.query.id;
+    FuncController.editarFuncionario(id, req, (err) => {
+        redirectAdmin(res, err);
     })
->>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
 })
 
 
