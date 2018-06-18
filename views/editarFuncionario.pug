@@ -1,0 +1,27 @@
+extends layout
+block content
+    h2 Editar Funcionario
+    form(method="POST" action="/editarFunc?id="+id)
+      label
+        | Nome do Funcionario
+        input(type="text" name="nome")
+      label
+        | Departamento
+        select(name="departamento")
+          option(value="1") Triagem
+          option(value="2") Consultas
+          option(value="3") Exames
+      label
+        | Tipo
+        select(name="tipo")
+          option(value="1") Medico
+          option(value="2") Administrado
+          option(value="3") Funcionario
+      label
+        | Palavra-Passe
+        input(type="password" name="password")
+      label
+        | Confirmar Palavra-Passe
+        input(type="password" name="password2")
+      button(name="Guardar" value="Guardar") Guardar
+    a(class='button' href='admin') Voltar

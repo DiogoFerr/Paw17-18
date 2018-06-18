@@ -1,16 +1,21 @@
-class TipoFuncionario{
-    constructor(descricao){
+const mySqlModule = require('./dbModel');
+class TipoFuncionario {
+    constructor(descricao) {
         this._idTipoFuncionario = null;
         this._descricao = descricao;
     }
 
-    get idTipoFuncionario(){
+    get idTipoFuncionario() {
         return this._idTipoFuncionario;
     }
 
-    get descricao(){
+    get descricao() {
         return this._descricao;
     }
-}
 
+    static getTipos(callback) {
+        var sql = ("SELECT * FROM tipofuncionario");
+        mySqlModule.query(sql, callback);
+    }
+}
 module.exports = TipoFuncionario;
