@@ -6,6 +6,14 @@ const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
+function redirectAdmin(err) {
+    if (err || err === false) {
+        res.end("Erro: " + err);
+    } else {
+        res.redirect("admin");
+    }
+}
+
 router.get('/', function (req, res) {
     res.redirect('index');
 });
@@ -64,11 +72,7 @@ router.get('/novoRegisto', function (req, res) {
 
 router.post('/novoRegisto', function (req, res) {
     FuncController.adicionarFuncionario(req, (err) => {
-        if (err || err === false) {
-            res.end("Erro: " + err);
-        } else {
-            res.redirect("admin");
-        }
+        redirectAdmin(err);
     });
 });
 
@@ -110,7 +114,10 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
+<<<<<<< HEAD
             console.log("departamentos");
+=======
+>>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
             departamentos = result;
         }
     });
@@ -118,7 +125,10 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
+<<<<<<< HEAD
             console.log("tipos");
+=======
+>>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
             tipos = result;
             res.render('editarFuncionario', {
                 id: id,
@@ -128,5 +138,18 @@ router.get('/editarFuncionario', function (req, res) {
 
         }
     });
+<<<<<<< HEAD
+=======
 })
+
+
+router.post('/editarFuncionario', function (req, res) {
+    FuncController.editarFuncionario((err) => {
+        redirectAdmin(err);
+    })
+>>>>>>> b27af1e44d77dd99701c62e2ac25a410260c2d7e
+})
+
+
+
 module.exports = router;
