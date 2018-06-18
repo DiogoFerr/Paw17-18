@@ -31,6 +31,24 @@ function deleteFuncionario(id, callback) {
     Funcionario.deleteFuncionario(id, callback);
 }
 
+function editarFuncionario() {
+    let nome = req.sanitize(req.body.nome);
+    let departamento = req.sanitize(req.body.departamento);
+    let tipo = req.sanitize(req.body.tipo);
+    let pass = req.sanitize(req.body.password);
+    let pass2 = req.sanitize(req.body.password2);
+
+    if (nome && departamento && tipo && pass == pass2) {
+        bcrypt.hash(pass, saltRounds, function (err, hash) {
+            Funcionario.updateFuncionario(nome, departamento, tipo, hash,  (err) => {
+                callback(err);
+            });
+        });
+
+    } else {
+        callback(false);
+    }
+}
 
 function procurarUtilizadores(callback) {
     Funcionario.procurarUtilizadores(callback);

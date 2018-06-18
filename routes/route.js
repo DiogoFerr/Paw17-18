@@ -6,6 +6,14 @@ const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
+function redirectAdmin(err) {
+    if (err || err === false) {
+        res.end("Erro: " + err);
+    } else {
+        res.redirect("admin");
+    }
+}
+
 router.get('/', function (req, res) {
     res.redirect('index');
 });
@@ -64,11 +72,7 @@ router.get('/novoRegisto', function (req, res) {
 
 router.post('/novoRegisto', function (req, res) {
     FuncController.adicionarFuncionario(req, (err) => {
-        if (err || err === false) {
-            res.end("Erro: " + err);
-        } else {
-            res.redirect("admin");
-        }
+        redirectAdmin(err);
     });
 });
 
@@ -110,7 +114,6 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("departamentos");
             departamentos = result;
         }
     });
@@ -118,7 +121,6 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("tipos");
             tipos = result;
             res.render('editarFuncionario', {
                 id: id,
@@ -129,4 +131,14 @@ router.get('/editarFuncionario', function (req, res) {
         }
     });
 })
+
+
+router.post('/editarFuncionario', function (req, res) {
+    FuncController.editarFuncionario((err) => {
+        redirectAdmin(err);
+    })
+})
+
+
+
 module.exports = router;
