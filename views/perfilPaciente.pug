@@ -1,6 +1,7 @@
 extends layout
 block content
-    h2 Perfil de Utente
-    table
-        tr
-            th Nome
+    h2 Perfil do Utente #{paciente.nome}
+        label NUS: #{paciente.NUS}
+        label Data de Nascimento: #{paciente.dataNascimento}
+        label Genero: #{paciente.genero}
+        label Morada: #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
