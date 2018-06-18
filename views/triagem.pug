@@ -1,0 +1,9 @@
+extends layout
+block content
+    table
+        tr
+            th Paciente
+        each paciente in pacientes
+            tr
+                td 
+                    a(href="/perfilPaciente?paciente=" + paciente) #{paciente.nome}

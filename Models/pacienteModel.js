@@ -53,7 +53,12 @@ class Paciente {
         var sql = ("INSERT INTO paciente (NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais)"
             + "VALUES ('" + paciente._NUS + "', '" + paciente._nome + "', '1994-11-10', " + paciente._genero + ", '" +
             paciente._rua + "', '" + paciente._concelho + "', '" + paciente._distrito + "', '" + paciente._pais + "')");
-            mysqlModule.query(sql, callback);
+        mysqlModule.query(sql, callback);
+    }
+
+    static procurarPacientes(callback) {
+        var sql = ("SELECT * FROM paciente");
+        mysqlModule.query(sql, callback);
     }
 }
 

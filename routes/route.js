@@ -44,7 +44,6 @@ router.get('/novoRegisto', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("departamentos");
             departamentos = result;
         }
     });
@@ -52,7 +51,6 @@ router.get('/novoRegisto', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("tipos");
             tipos = result;
             res.render('novoRegisto', {
                 tipos: tipos,
@@ -88,8 +86,47 @@ router.post('/novoPaciente', function (req, res) {
     });
 });
 
+router.get('/triagem', function (req, res) {
+    PacienteController.procurarPacientes((err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.render("triagem", {
+                pacientes: result
+            });
+        }
+    });
+
+});
+
+router.get('/perfilPaciente', function (req, res) {
+
+});
+
 router.get('/editarFuncionario', function (req, res) {
     let id = req.query.id;
-    res.render('editarFuncionario', { id: id });
+    let departamentos, tipos;
+    DepartamentoController.getDepartamentos((err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            console.log("departamentos");
+            departamentos = result;
+        }
+    });
+    TipoFuncController.getTipos((err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            console.log("tipos");
+            tipos = result;
+            res.render('editarFuncionario', {
+                id: id,
+                tipos: tipos,
+                departamentos: departamentos
+            });
+
+        }
+    });
 })
 module.exports = router;

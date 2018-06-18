@@ -17,6 +17,8 @@ class Departamento {
         var sql = ("SELECT * FROM departamento");
         mySqlModule.query(sql, callback);
     }
+
+    
 }
 
 module.exports = Departamento;
