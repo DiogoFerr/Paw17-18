@@ -66,7 +66,13 @@ class Funcionario {
             return true;
         }
     }
-    
+
+    static updateFuncionario(id, nome, departamento, tipo, password, callback) {
+        var sql = ("UPDATE funcionario SET nome='" + nome + "', Departamento_idDepartamento= " + departamento +
+            ", TipoFuncionario_idTipoFuncionario= " + tipo + ", password= '" + password + "' WHERE idFuncionario= " + id);
+        mySqlModule.query(sql, callback);
+    }
+
     static procurarUtilizadores(callback) {
         var sql = ("SELECT * FROM funcionario WHERE NOT TipoFuncionario_idTipoFuncionario = 1");
         mySqlModule.query(sql, callback);
