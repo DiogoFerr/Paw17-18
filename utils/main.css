@@ -8,6 +8,19 @@ body{
 html{
     height: 100%;
 }
+.triagem{
+    margin-left: 5%;
+    display: block;
+    margin-bottom: 1%;
+    width: auto;
+    text-align: left;
+}
+.triagem label{
+    font-weight:bold;
+}
+.triagem label span{
+    font-weight: normal;
+}
 
 input, label, textarea, select{
     display: block;

@@ -1,7 +1,26 @@
 extends layout
 block content
     h2 Perfil do Utente #{paciente.nome}
-        label NUS: #{paciente.NUS}
-        label Data de Nascimento: #{paciente.dataNascimento}
-        label Genero: #{paciente.genero}
-        label Morada: #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
+    div(class='triagem')
+        form(method="GET" action="/?????")
+            label NUS: 
+                span #{paciente.NUS}
+            label Data de Nascimento: 
+                span #{paciente.dataNascimento}
+            label Genero: 
+                span #{paciente.genero}
+            label Morada: 
+                span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
+            fielset
+                label Estado do Paciente
+                | Pulseira Verde
+                input(type="radio", name="paciente_status", value="0", checked=gender=="verde")
+                | Pulseira Amarela
+                input(type="radio", name="paciente_status", value="1", checked=gender=="amarelo")
+                | Pulseira Vermelha
+                input(type="radio", name="paciente_status", value="2", checked=gender=="vermelho")
+                | Fazer Exames
+                input(type="radio", name="paciente_status", value="3", checked=gender=="fazerExame")
+            label Observações
+            textarea(name="description", cols="40", rows="5")
+            button(name="Submeter" value="Submeter") Submeter
