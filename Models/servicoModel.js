@@ -2,8 +2,8 @@ class Servico{
     constructor(dataEntrada, dataSaida, prioridade, descricao, idRegisto, idFuncionario, idTipoServico){
         this._idServico = null;
         this._dataEntrada = dataEntrada;
-        this._dataSaida = dataSaida;
-        this._prioridade = prioridade;
+        this._dataSaida = null;
+        this._prioridade = null;
         this._descricao = descricao;
         this._idRegisto = idRegisto;
         this._idFuncionario = idFuncionario;
