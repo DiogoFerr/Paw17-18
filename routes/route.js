@@ -93,10 +93,35 @@ router.post('/novoPaciente', function (req, res) {
 router.get('/triagem', function (req, res) {
     PacienteController.procurarPacientes((err, result) => {
         if (err || err === false) {
-            console.log("quebra aqui 1");
             res.end("Erro: " + err);
         } else {
             res.render("triagem", {
+                pacientes: result
+            });
+        }
+    });
+
+});
+
+router.get('/exames', function (req, res) {
+    PacienteController.procurarPacientes((err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.render("exames", {
+                pacientes: result
+            });
+        }
+    });
+
+});
+
+router.get('/consultas', function (req, res) {
+    PacienteController.procurarPacientes((err, result) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.render("consultas", {
                 pacientes: result
             });
         }
