@@ -31,10 +31,15 @@ function procurarPacientes(callback) {
     Paciente.procurarPacientes(callback);
 }
 
-function getUserByNUS(NUS, result, callback){
+function getUserByNUS(NUS, result, callback) {
     Paciente.getUserByNUS(NUS, result, callback);
 }
 
+function countUserByNUS(NUS, result, callback) {
+    Paciente.countUserByNUS(NUS, result, callback);
+}
+
+exports.countUserByNUS= countUserByNUS;
 exports.getUserByNUS = getUserByNUS;
 exports.procurarPacientes = procurarPacientes;
 exports.adicionarPaciente = adicionarPaciente;
