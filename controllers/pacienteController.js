@@ -29,7 +29,6 @@ function adicionarPaciente(req, callback) {
 
 function procurarPacientes(callback) {
     Paciente.procurarPacientes(callback);
-
 }
 
 function getUserByNUS(NUS, result, callback){
