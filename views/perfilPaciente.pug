@@ -2,8 +2,8 @@ extends layout
 block content
     h2 Perfil do Utente #{paciente.nome}
     div(class='triagem')
-        form(method="GET" action="/?????")
-            label NUS: 
+        form(method="POST" action="/setPrioridadeUser/" + paciente.NUS)
+            label(id="nus" utente=paciente.NUS) NUS: 
                 span #{paciente.NUS}
             label Data de Nascimento: 
                 span #{paciente.dataNascimento}
@@ -11,16 +11,19 @@ block content
                 span #{paciente.genero}
             label Morada: 
                 span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
-            fielset
+            fieldset(id="checkbox")
                 label Estado do Paciente
                 | Pulseira Verde
-                input(type="radio", name="paciente_status", value="0", checked=gender=="verde")
+                input(type="radio", name="paciente_status", value="verde")
                 | Pulseira Amarela
-                input(type="radio", name="paciente_status", value="1", checked=gender=="amarelo")
+                input(type="radio", name="paciente_status", value="amarelo")
                 | Pulseira Vermelha
-                input(type="radio", name="paciente_status", value="2", checked=gender=="vermelho")
+                input(type="radio", name="paciente_status", value="vermelho")
                 | Fazer Exames
-                input(type="radio", name="paciente_status", value="3", checked=gender=="fazerExame")
+                input(type="radio", name="paciente_status", value="fazerExame")
             label Observações
             textarea(name="description", cols="40", rows="5")
-            button(name="Submeter" value="Submeter") Submeter
+            button(id="submit" name="Submeter" value="Submeter") Submeter
+            button(href="triagem") Voltar atrás
+    script
+        include ../scripts/examesOuConsultas.js    

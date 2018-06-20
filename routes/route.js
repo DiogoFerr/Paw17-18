@@ -5,6 +5,7 @@ const FuncController = require("../controllers/funcionarioController");
 const PacienteController = require("../controllers/pacienteController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
+const servicoController = require("../controllers/servicoController");
 
 function redirectAdmin(res,err) {
     if (err || err === false) {
@@ -129,8 +130,17 @@ router.get('/consultas', function (req, res) {
 
 });
 
-router.get('/perfilPaciente', function (req, res) {
-    let NUS = req.query.NUS;
+router.post('/setPrioridadeUser/:id', function (req, res){
+    let nus = req.params.id;
+    servicoController.setPrioridade(nus, (err) => {
+        if (err || err === false){
+            res.end("Erro: " + err);
+        }
+    });
+});
+
+router.get('/perfilPaciente/users/:id', function (req, res) {
+    let NUS = req.params.id;
     PacienteController.getUserByNUS(NUS, (err, result) => {
         if (err || err === false) {
             res.end("Erro: " + err);
