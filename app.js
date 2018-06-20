@@ -10,9 +10,15 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+//Routes
 const path = require('path');
-const routes = require('./routes/route');
+const main = require('./routes/main');
 const users = require('./routes/users');
+const admin = require('./routes/admin');
+const exames = require('./routes/exames');
+const receccao = require('./routes/receccao');
+const consultas = require('./routes/consultas');
+const triagem = require('./routes/triagem');
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -53,8 +59,13 @@ app.use((req, res, next) => {
 
 
 //Routes
-app.use('/', routes);
+app.use('/', main);
 app.use('/users', users);
+app.use('/admin', admin);
+app.use('/receccao', receccao);
+app.use('/triagem', triagem);
+app.use('/consultas', consultas);
+app.use('/exames', exames);
 
 app.listen(8081, () => {
     console.log('App Listening on port 8080!');

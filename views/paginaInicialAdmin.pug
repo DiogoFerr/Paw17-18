@@ -1,0 +1,15 @@
+extends layout
+block content
+    h2 Utilizadores
+    table
+      tr
+        th Nome
+        th Acção
+      each funcionario in funcionarios
+        tr
+          td  #{funcionario.nome}
+          td 
+            a(href="/admin/editarFuncionario?id=" + funcionario.idFuncionario) Editar
+            a(href="/admin/deleteFuncionario?id=" + funcionario.idFuncionario) Eliminar
+            
+    a(class='button' href='/admin/novoFuncionario') Novo Registo
