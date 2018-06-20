@@ -1,4 +1,5 @@
 const mySqlModule = require('./dbModel');
+
 class TipoFuncionario {
     constructor(descricao) {
         this._idTipoFuncionario = null;

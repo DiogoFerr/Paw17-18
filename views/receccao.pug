@@ -1,7 +1,7 @@
 extends layout
 block content
     h2 Novo Paciente
-    form(method="POST")
+    form(method="POST" action="/receccao")
       label
         | Nº Utente de Saúde 
         input(id="nus" type="text" name="nus" maxlength="9")

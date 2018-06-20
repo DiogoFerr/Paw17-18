@@ -1,3 +1,5 @@
+const mySqlModule = require('./dbModel');
+
 class Servico{
     constructor(dataEntrada, dataSaida, prioridade, descricao, idRegisto, idFuncionario, idTipoServico){
         this._idServico = null;
@@ -44,3 +46,8 @@ class Servico{
 }
 
 module.exports = Servico;
+
+module.exports.criarServico = (idPaciente, dataEntrada, callback) => {
+    var sql = ("INSERT INTO servico (dataEntrada, descricao, Registo_idRegisto, Funcionario_idFuncionario, TipoServico_idTipoServico)"); 
+    mysqlModule.query(sql, callback);
+}

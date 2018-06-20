@@ -22,6 +22,10 @@ html{
     font-weight: normal;
 }
 
+.triagem textarea{
+    resize: none;
+}
+
 input, label, textarea, select{
     display: block;
     margin-bottom: 1%;

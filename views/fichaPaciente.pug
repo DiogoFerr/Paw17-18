@@ -2,7 +2,7 @@ extends layout
 block content
     h2 Perfil do Utente #{paciente.nome}
     div(class='triagem')
-        form(method="POST" action="/setPrioridadeUser/" + paciente.NUS)
+        form(method="POST" action="/triagem/setPrioridadeUser/" + paciente.NUS)
             label(id="nus" utente=paciente.NUS) NUS: 
                 span #{paciente.NUS}
             label Data de Nascimento: 
@@ -11,19 +11,18 @@ block content
                 span #{paciente.genero}
             label Morada: 
                 span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
-            fieldset(id="checkbox")
-                label Estado do Paciente
-                | Pulseira Verde
-                input(type="radio", name="paciente_status", value="verde")
-                | Pulseira Amarela
-                input(type="radio", name="paciente_status", value="amarelo")
-                | Pulseira Vermelha
-                input(type="radio", name="paciente_status", value="vermelho")
-                | Fazer Exames
-                input(type="radio", name="paciente_status", value="fazerExame")
+            label Estado do Paciente
+            | Pulseira Verde
+            input(type="radio", name="paciente_status", value="Verde")
+            | Pulseira Amarela
+            input(type="radio", name="paciente_status", value="Amarelo")
+            | Pulseira Vermelha
+            input(type="radio", name="paciente_status", value="Vermelho")
+            | Fazer Exames
+            input(type="radio", name="paciente_status", value="Exame")
             label Observações
             textarea(name="description", cols="40", rows="5")
             button(id="submit" name="Submeter" value="Submeter") Submeter
-            button(href="triagem") Voltar atrás
+        button(onclick="location.href='/triagem'") Voltar atrás
     script
         include ../scripts/examesOuConsultas.js    
