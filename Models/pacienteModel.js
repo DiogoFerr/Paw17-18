@@ -76,4 +76,12 @@ module.exports = Paciente;
 module.exports.getUserByNUS = (NUS, result, callback) => {
     var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
     mysqlModule.query(sql, result, callback);
+    console.log(result.lenght);
+    
+}
+
+module.exports.countUserByNUS = (NUS, result, callback) => {
+    var sql = ("SELECT COUNT(idPaciente) AS total FROM paciente WHERE NUS =" + NUS);
+    mysqlModule.query(sql, result, callback);
+    
 }
