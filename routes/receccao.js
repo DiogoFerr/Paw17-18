@@ -29,7 +29,7 @@ router.post('/novoPaciente', function (req, res) {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            res.redirect("receccao");
+            res.redirect("/receccao");
         }
     });
 });
