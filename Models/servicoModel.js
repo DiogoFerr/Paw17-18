@@ -1,4 +1,5 @@
 const mySqlModule = require('./dbModel');
+const data = require('dateformat');
 
 class Servico{
     constructor(dataEntrada, dataSaida, prioridade, descricao, idRegisto, idFuncionario, idTipoServico){
@@ -47,7 +48,11 @@ class Servico{
 
 module.exports = Servico;
 
-module.exports.criarServico = (idPaciente, dataEntrada, callback) => {
-    var sql = ("INSERT INTO servico (dataEntrada, descricao, Registo_idRegisto, Funcionario_idFuncionario, TipoServico_idTipoServico)"); 
-    mysqlModule.query(sql, callback);
+module.exports.adicionarServicoTriagem = (NUS, callback) => {
+    var sql = ("SELECT idRegisto FROM registo INNER JOIN paciente WHERE registo.Paciente_idPaciente = paciente.idPaciente AND paciente.NUS=" + NUS + " AND registo.dataSaida IS NULL");
+    var id = mysqlModule.query(sql);
+    var data = new Date();
+    var dataEntrada = data(data, 'YYYY-MM-DD HH:mm:ss');
+    var sql2 = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ("+ dataEntrada + ", " + id + ", 1);"); 
+    mysqlModule.query(sql2, callback);
 }
