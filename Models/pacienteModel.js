@@ -50,25 +50,30 @@ class Paciente {
     }
 
     static inserirPaciente(paciente, callback) {
-        console.log("FIXE: " + paciente._dataNascimento);
-        var sql = ("INSERT INTO paciente (NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais)"
-            + "VALUES ('" + paciente._NUS + "', '" + paciente._nome + "', '" + paciente._dataNascimento + "', " + paciente._genero + ", '" +
-            paciente._rua + "', '" + paciente._concelho + "', '" + paciente._distrito + "', '" + paciente._pais + "')");
-        mysqlModule.query(sql, callback);
+        var verificar = ('SELECT COUNT(*) AS total FROM registo WHERE dataSaida IS NULL AND Paciente_idPaciente=' + paciente._idPaciente);
+        var registoPedente = mysqlModule.query(verificar);
+        if (registoPendete[0].total === 0) {
+            var sql = ("INSERT INTO paciente (NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais)"
+                + "VALUES ('" + paciente._NUS + "', '" + paciente._nome + "', '" + paciente._dataNascimento + "', " + paciente._genero + ", '" +
+                paciente._rua + "', '" + paciente._concelho + "', '" + paciente._distrito + "', '" + paciente._pais + "')");
+            mysqlModule.query(sql, callback);
+        } else {
+            callback(false);
+        }
     }
 
     static procurarPacientes(callback) {
         var sql = ("SELECT * FROM paciente");
         mysqlModule.query(sql, callback);
     }
-/*
-    static getUserByNUS(NUS,  callback) {
-        var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
-        mysqlModule.query(sql, result, callback);
-        console.log("EEEEEEEEEEEEEEEEEEEEEE");
-        console.log(result[0].NUS);
-    }
-    */
+    /*
+        static getUserByNUS(NUS,  callback) {
+            var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
+            mysqlModule.query(sql, result, callback);
+            console.log("EEEEEEEEEEEEEEEEEEEEEE");
+            console.log(result[0].NUS);
+        }
+        */
 }
 
 module.exports = Paciente;
@@ -77,11 +82,11 @@ module.exports.getUserByNUS = (NUS, result, callback) => {
     var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
     mysqlModule.query(sql, result, callback);
     console.log(result.lenght);
-    
+
 }
 
 module.exports.countUserByNUS = (NUS, result, callback) => {
     var sql = ("SELECT COUNT(idPaciente) AS total FROM paciente WHERE NUS =" + NUS);
     mysqlModule.query(sql, result, callback);
-    
+
 }

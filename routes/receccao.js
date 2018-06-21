@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const empty = require("is-empty");
 const PacienteController = require("../controllers/pacienteController");
-
+const RegistoController = require("../controllers/registoController");
+const ServicoController = require("../controllers/servicoController");
 router.get('/', function (req, res) {
     res.render('pesquisarPaciente');
 });
@@ -25,11 +26,25 @@ router.get('/novoPaciente', function (req, res) {
 
 
 router.post('/novoPaciente', function (req, res) {
+    let idFunc = 1;
     PacienteController.adicionarPaciente(req, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            res.redirect("/receccao");
+            RegistoController.adicionarRegisto(req.body.NUS, (err) => {
+                if (err || err === false) {
+                    res.end("Erro: " + err);
+                } else {
+                    ServicoController.adicionarServicoTriagem(req.body.NUS, (err) => {
+                        if (err || err === false) {
+                            res.end("Erro: " + err);
+                        } else {
+                            alert('Criado com sucesso');
+                            res.redirect('/receccao');
+                        }
+                    })
+                }
+            })
         }
     });
 });
