@@ -31,8 +31,8 @@ function procurarPacientes(callback) {
     Paciente.procurarPacientes(callback);
 }
 
-function getUserByNUS(NUS, result, callback) {
-    Paciente.getUserByNUS(NUS, result, callback);
+function getUserByNUS(NUS, callback) {
+    Paciente.getUserByNUS(NUS, callback);
 }
 
 function countUserByNUS(NUS, result, callback) {

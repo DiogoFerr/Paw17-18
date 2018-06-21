@@ -1,8 +1,8 @@
 const mySqlModule = require('./dbModel');
 const data = require('dateformat');
 
-class Servico{
-    constructor(dataEntrada, dataSaida, prioridade, descricao, idRegisto, idFuncionario, idTipoServico){
+class Servico {
+    constructor(dataEntrada, dataSaida, prioridade, descricao, idRegisto, idFuncionario, idTipoServico) {
         this._idServico = null;
         this._dataEntrada = dataEntrada;
         this._dataSaida = null;
@@ -13,46 +13,45 @@ class Servico{
         this._idTipoServico = idTipoServico;
     }
 
-    get idServico(){
+    get idServico() {
         return this._idServico;
     }
 
-    get dataEntrada(){
+    get dataEntrada() {
         return this._dataEntrada;
     }
 
-    get dataSaida(){
+    get dataSaida() {
         return this._dataSaida;
     }
 
-    get prioridade(){
+    get prioridade() {
         return this._prioridade;
     }
 
-    get descricao(){
+    get descricao() {
         return this._descricao;
     }
 
-    get idRegisto(){
+    get idRegisto() {
         return this._idRegisto;
     }
 
-    get idFuncionario(){
+    get idFuncionario() {
         return this._idFuncionario;
     }
 
-    get idTipoServico(){
+    get idTipoServico() {
         return this._idTipoServico;
     }
 }
 
 module.exports = Servico;
 
-module.exports.adicionarServicoTriagem = (NUS, callback) => {
-    var sql = ("SELECT idRegisto FROM registo INNER JOIN paciente WHERE registo.Paciente_idPaciente = paciente.idPaciente AND paciente.NUS=" + NUS + " AND registo.dataSaida IS NULL");
-    var id = mysqlModule.query(sql);
-    var data = new Date();
-    var dataEntrada = data(data, 'YYYY-MM-DD HH:mm:ss');
-    var sql2 = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ("+ dataEntrada + ", " + id + ", 1);"); 
-    mysqlModule.query(sql2, callback);
+module.exports.adicionarServicoTriagem = (NUS, id, callback) => {
+    var date = new Date();
+    var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
+    console.log("OFAJFJASKAJFSKJFASKJFSA");
+    var sql = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', " + id + ", 1);");
+    mySqlModule.query(sql, callback);
 }

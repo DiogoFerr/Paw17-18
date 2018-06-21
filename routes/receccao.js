@@ -27,24 +27,34 @@ router.get('/novoPaciente', function (req, res) {
 
 router.post('/novoPaciente', function (req, res) {
     let idFunc = 1;
+    var NUS = req.body.nus;
     PacienteController.adicionarPaciente(req, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {
-            RegistoController.adicionarRegisto(req.body.NUS, (err) => {
-                if (err || err === false) {
-                    res.end("Erro: " + err);
-                } else {
-                    ServicoController.adicionarServicoTriagem(req.body.NUS, (err) => {
-                        if (err || err === false) {
-                            res.end("Erro: " + err);
-                        } else {
-                            alert('Criado com sucesso');
-                            res.redirect('/receccao');
-                        }
-                    })
-                }
-            })
+            PacienteController.getUserByNUS(NUS, (err, result) => {
+                var idPaciente = result[0].idPaciente;
+                RegistoController.adicionarRegisto(idPaciente, (err) => {
+                    if (err || err === false) {
+                        res.end("Erro: " + err);
+                    } else {
+                        RegistoController.getIdRegistoByNus(NUS, (err, result) => {
+                            if (err || err === false) {
+                                res.end("Erro: " + err);
+                            } else {
+                                var idRegisto = result[0].idRegisto;
+                            }
+                            ServicoController.adicionarServicoTriagem(idPaciente, idRegisto, (err) => {
+                                if (err || err === false) {
+                                    res.end("Erro: " + err);
+                                } else {
+                                    res.redirect('/receccao');
+                                }
+                            });
+                        });
+                    }
+                });
+            });
         }
     });
 });
