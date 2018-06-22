@@ -25,8 +25,12 @@ function adicionarPaciente(req, callback) {
     }
 }
 
-function procurarPacientes(callback) {
-    Paciente.procurarPacientes(callback);
+function procurarPacientesTriagem(callback) {
+    Paciente.procurarPacientesTriagem(callback);
+}
+
+function procurarPacientesConsultas(callback) {
+    Paciente.procurarPacientesConsultas(callback);
 }
 
 function getUserByNUS(NUS, callback) {
@@ -39,5 +43,6 @@ function countUserByNUS(NUS, callback) {
 
 exports.countUserByNUS= countUserByNUS;
 exports.getUserByNUS = getUserByNUS;
-exports.procurarPacientes = procurarPacientes;
+exports.procurarPacientesTriagem = procurarPacientesTriagem;
+exports.procurarPacientesConsultas = procurarPacientesConsultas;
 exports.adicionarPaciente = adicionarPaciente;
