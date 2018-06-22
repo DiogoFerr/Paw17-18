@@ -33,6 +33,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Middleware to sanitize data
 app.use(expressSanitizer());
 
+//Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
 //PASSPORT init
 app.use(passport.initialize());
 app.use(passport.session());

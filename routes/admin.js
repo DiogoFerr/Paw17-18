@@ -4,16 +4,6 @@ const FuncController = require("../controllers/funcionarioController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
-
-function redirectAdmin(res, err) {
-    if (err || err === false) {
-        res.end("Erro: " + err);
-    } else {
-        res.redirect("paginaInicialAdmin");
-    }
-}
-
-
 router.get('/', function (req, res) {
     FuncController.procurarUtilizadores((err, result) => {
         if (err || err === false) {
@@ -29,7 +19,11 @@ router.get('/', function (req, res) {
 
 router.post('/novoFuncionario', function (req, res) {
     FuncController.adicionarFuncionario(req, (err) => {
-        redirectAdmin(err);
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("/admin");
+        }
     });
 });
 
@@ -59,7 +53,11 @@ router.get('/novoFuncionario', function (req, res) {
 router.post('/editarFuncionario', function (req, res) {
     let id = req.query.id;
     FuncController.editarFuncionario(id, req, (err) => {
-        redirectAdmin(res, err);
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("/admin");
+        }
     })
 });
 
@@ -70,7 +68,6 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("departamentos");
             departamentos = result;
         }
     });
@@ -78,7 +75,6 @@ router.get('/editarFuncionario', function (req, res) {
         if (err || err === false) {
             res.end("Erro:" + err);
         } else {
-            console.log("tipos");
             tipos = result;
             res.render('editarFuncionario', {
                 id: id,
@@ -93,7 +89,11 @@ router.get('/editarFuncionario', function (req, res) {
 router.get('/deleteFuncionario', function (req, res) {
     let id = req.query.id;
     FuncController.deleteFuncionario(id, (err, result) => {
-        redirectAdmin(res, err);
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        } else {
+            res.redirect("/admin");
+        }
     });
 })
 
