@@ -4,9 +4,13 @@ block content
     table
         tr
             th NUS
+            th Prioridade
+            th Data Entrada
             th Paciente
         each paciente in pacientes
             tr
                 td #{paciente.NUS} 
+                td #{paciente.prioridade}
+                td #{paciente.dataEntrada}
                 td
                     a(href="/consultas/perfilPaciente/" + paciente.NUS)  #{paciente.nome}

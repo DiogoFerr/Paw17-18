@@ -56,26 +56,33 @@ class Paciente {
             paciente._rua + "', '" + paciente._concelho + "', '" + paciente._distrito + "', '" + paciente._pais + "')");
         mysqlModule.query(sql, callback);
     }
-
-    static procurarPacientes(callback) {
-        var sql = ("SELECT * FROM paciente");
-        mysqlModule.query(sql, callback);
-    }
-    /*
-        static getUserByNUS(NUS,  callback) {
-            var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
-            mysqlModule.query(sql, result, callback);
-            console.log("EEEEEEEEEEEEEEEEEEEEEE");
-            console.log(result[0].NUS);
-        }
-        */
 }
 
 module.exports = Paciente;
 
+module.exports.procurarPacientesTriagem = (callback) => {
+    var sql = ("SELECT paciente.* FROM paciente INNER JOIN registo ON paciente.idPaciente = registo.Paciente_idPaciente INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto WHERE TipoServico_idTipoServico = 1 AND servico.dataSaida IS NULL");
+    mysqlModule.query(sql, callback);
+}
+
+module.exports.procurarPacientesConsultas = (callback) => {
+    var sql = ("SELECT paciente.*, servico.prioridade, servico.dataEntrada " +
+    "FROM paciente " +
+    "INNER JOIN registo ON paciente.idPaciente = registo.idRegisto " +
+    "INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto " +
+    "WHERE servico.TipoServico_idTipoServico = 3 AND servico.dataSaida IS NULL " +
+    "ORDER BY " +     
+        "(CASE " + 
+            "WHEN (servico.prioridade = 'Vermelho') THEN 1 " + 
+            "WHEN (servico.prioridade = 'Amarelo') THEN 2 " +
+            "WHEN (servico.prioridade = 'Verde') THEN 3 " +
+        "END), servico.dataEntrada");
+    mysqlModule.query(sql, callback);
+}
+
 module.exports.getUserByNUS = (NUS, callback) => {
     var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
-    mysqlModule.query(sql, callback); 
+    mysqlModule.query(sql, callback);
 }
 
 module.exports.countUserByNUS = (NUS, result, callback) => {
