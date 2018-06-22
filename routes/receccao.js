@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const empty = require("is-empty");
 const PacienteController = require("../controllers/pacienteController");
 const RegistoController = require("../controllers/registoController");
 const ServicoController = require("../controllers/servicoController");
