@@ -7,27 +7,29 @@ block content
         input(id="nus" type="text" name="nus" maxlength="9")
       label
         | Nome
-        input(type="text" name="nome" maxlength="45")
+        input(id="nome" type="text" name="nome" maxlength="45")
       label
         | Data Nascimento
-        input(type="date" name="dataNascimento")
+        input(id="date" type="date" name="dataNascimento")
       label
         | Género
-        select(name="tipo")
+        select(id="tipo" name="tipo")
           option(value="1") Masculino
           option(value="2") Feminino
       label
         | Rua
-        input(type="text" name="rua")
+        input(id="rua" type="text" name="rua")
       label
         | Concelho
-        input(type="text" name="concelho")
+        input(id="concelho" type="text" name="concelho")
       label
         | Distrito
       label
-        input(type="text" name="distrito")
+        input(id="distrito" type="text" name="distrito")
       label
         | Pais
-        input(type="text" name="pais")
+        input(id="pais" type="text" name="pais")
       button(name="Registar" value="Registar") Registar Paciente
+    script
+        include ../utils/scripts/validatorNovoPaciente.js
     button(onClick = "location.href='/receccao'") Voltar

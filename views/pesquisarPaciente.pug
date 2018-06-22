@@ -4,5 +4,7 @@ block content
     form(method="POST" action="/receccao/pesquisar")   
         label
             | Numero de Utente
-            input(type="text" name="NUS" maxLength="9" required="true")
-        button(name="Pesquisar" value="Pesquisar") Pesquisar
+            input(type="text" name="NUS" id ="NUS" maxLength="9" required="true")
+        button(id="pesquisar" value="pesquisar") Pesquisar
+    script
+        include ../utils/scripts/validatorPesPaciente.js
