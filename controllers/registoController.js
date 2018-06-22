@@ -8,5 +8,10 @@ function getIdRegistoByNus(nus, callback){
     registo.getIdRegistoByNus(nus, callback);
 }
 
+function verificaExistenciaRegisto(nus, callback){
+    registo.verificaExistenciaRegisto(nus, callback);
+}
+
 exports.adicionarRegisto = adicionarRegisto;
 exports.getIdRegistoByNus = getIdRegistoByNus;
+exports.verificaExistenciaRegisto = verificaExistenciaRegisto;

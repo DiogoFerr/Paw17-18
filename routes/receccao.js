@@ -7,24 +7,31 @@ const ServicoController = require("../controllers/servicoController");
 function registarServico(NUS, req, res) {
     PacienteController.getUserByNUS(NUS, (err, result) => {
         var idPaciente = result[0].idPaciente;
-        RegistoController.adicionarRegisto(idPaciente, (err) => {
-            if (err || err === false) {
-                res.end("Erro: " + err);
-            } else {
-                RegistoController.getIdRegistoByNus(NUS, (err, result) => {
+        RegistoController.verificaExistenciaRegisto(NUS, (err, result) => {
+            if (result[0].total === 0) {
+                RegistoController.adicionarRegisto(idPaciente, (err) => {
                     if (err || err === false) {
                         res.end("Erro: " + err);
                     } else {
-                        var idRegisto = result[0].idRegisto;
+                        RegistoController.getIdRegistoByNus(NUS, (err, result) => {
+                            if (err || err === false) {
+                                res.end("Erro: " + err);
+                            } else {
+                                var idRegisto = result[0].idRegisto;
+                            }
+                            ServicoController.adicionarServicoTriagem(idPaciente, idRegisto, (err) => {
+                                if (err || err === false) {
+                                    res.end("Erro: " + err);
+                                } else {
+                                    res.redirect('/receccao');
+                                }
+                            });
+                        });
                     }
-                    ServicoController.adicionarServicoTriagem(idPaciente, idRegisto, (err) => {
-                        if (err || err === false) {
-                            res.end("Erro: " + err);
-                        } else {
-                            res.redirect('/receccao');
-                        }
-                    });
                 });
+            } else {
+                console.log("Já tem um registo associado sem data de saída");
+                res.redirect('/receccao');
             }
         });
     });

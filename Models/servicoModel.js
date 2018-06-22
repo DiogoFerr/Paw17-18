@@ -51,7 +51,6 @@ module.exports = Servico;
 module.exports.adicionarServicoTriagem = (NUS, id, callback) => {
     var date = new Date();
     var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
-    console.log("OFAJFJASKAJFSKJFASKJFSA");
     var sql = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', " + id + ", 1);");
     mySqlModule.query(sql, callback);
 }
