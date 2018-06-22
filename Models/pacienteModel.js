@@ -56,26 +56,18 @@ class Paciente {
             paciente._rua + "', '" + paciente._concelho + "', '" + paciente._distrito + "', '" + paciente._pais + "')");
         mysqlModule.query(sql, callback);
     }
-
-    static procurarPacientes(callback) {
-        var sql = ("SELECT * FROM paciente");
-        mysqlModule.query(sql, callback);
-    }
-    /*
-        static getUserByNUS(NUS,  callback) {
-            var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
-            mysqlModule.query(sql, result, callback);
-            console.log("EEEEEEEEEEEEEEEEEEEEEE");
-            console.log(result[0].NUS);
-        }
-        */
 }
 
 module.exports = Paciente;
 
+module.exports.procurarPacientesTriagem = (callback) => {
+    var sql = ("SELECT paciente.* FROM paciente INNER JOIN registo ON paciente.idPaciente = registo.Paciente_idPaciente INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto WHERE TipoServico_idTipoServico = 1 AND servico.dataSaida IS NULL");
+    mysqlModule.query(sql, callback);
+}
+
 module.exports.getUserByNUS = (NUS, callback) => {
     var sql = ("SELECT * FROM paciente WHERE NUS = " + NUS);
-    mysqlModule.query(sql, callback); 
+    mysqlModule.query(sql, callback);
 }
 
 module.exports.countUserByNUS = (NUS, result, callback) => {
