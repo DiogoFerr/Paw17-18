@@ -8,7 +8,7 @@ const Funcionario = require('../models/funcionarioModel');
 const bcrypt = require('bcrypt');
 
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/' })
+    passport.authenticate('local', { successRedirect: '/login', failureRedirect: '/' })
 );
 
 passport.use(new LocalStrategy(
