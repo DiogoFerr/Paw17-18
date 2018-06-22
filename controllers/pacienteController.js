@@ -35,8 +35,8 @@ function getUserByNUS(NUS, callback) {
     Paciente.getUserByNUS(NUS, callback);
 }
 
-function countUserByNUS(NUS, result, callback) {
-    Paciente.countUserByNUS(NUS, result, callback);
+function countUserByNUS(NUS, callback) {
+    Paciente.countUserByNUS(NUS, callback);
 }
 
 exports.countUserByNUS= countUserByNUS;
