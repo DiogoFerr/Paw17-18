@@ -4,9 +4,24 @@ function adicionarServicoTriagem(id, callback) {
     servico.adicionarServicoTriagem(id, callback);
 }
 
-function setPrioridade(id, idRegisto, req, callback){
-    servico.setPrioridade(id, idRegisto, req, callback);
+function adicionarServicoConsultas(idRegisto, prioridade, callback){
+    servico.adicionarServicoConsultas(idRegisto, prioridade, callback);
+}
+
+function adicionarServicoExamesTriagem(idRegisto, callback){
+    servico.adicionarServicoExamesTriagem(idRegisto, callback);
+}
+
+function setPrioridade(idFuncionario, idRegisto, req, callback){
+    servico.setPrioridade(idFuncionario, idRegisto, req, callback);
+}
+
+function setToExames(idFuncionario, idRegisto, req, callback){
+    servico.setToExames(idFuncionario, idRegisto, req, callback);
 }
 
 exports.adicionarServicoTriagem = adicionarServicoTriagem;
+exports.adicionarServicoConsultas = adicionarServicoConsultas;
+exports.adicionarServicoExamesTriagem = adicionarServicoExamesTriagem;
 exports.setPrioridade = setPrioridade;
+exports.setToExames = setToExames;

@@ -55,14 +55,41 @@ module.exports.adicionarServicoTriagem = (id, callback) => {
     mySqlModule.query(sql, callback);
 }
 
-module.exports.setPrioridade = (id, idRegisto, req, callback) => {
+module.exports.adicionarServicoExamesTriagem = (idRegisto, prioridade, callback) => {
+    var date = new Date();
+    var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', " + idRegisto + ", 2);");
+    mySqlModule.query(sql, callback);
+}
+
+module.exports.adicionarServicoConsultas = (idRegisto, prioridade, callback) => {
+    var date = new Date();
+    var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("INSERT INTO servico (dataEntrada, prioridade, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', '" + prioridade + "', " + idRegisto + ", 3);");
+    mySqlModule.query(sql, callback);
+}
+
+module.exports.setPrioridade = (idFuncionario, idRegisto, req, callback) => {
     descricao = req.body.description;
     prioridade = req.body.paciente_status;
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
-    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida + "', prioridade='" + prioridade + 
-    "', descricao='" + descricao + "', Funcionario_idFuncionario =" + id +
-    " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 1 AND " +
-    "servico.dataSaida IS NULL;")
+    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida + "', prioridade='" + prioridade +
+        "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario +
+        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 1 AND " +
+        "servico.dataSaida IS NULL;")
+    mySqlModule.query(sql, callback);
+}
+
+// SE NAO TIVER PRIORIDADE È PQ SE ENCONTRA NOS EXAMES SE NAO ESTA NAS CONSULTAS
+module.exports.setToExames = (idFuncionario, idRegisto, req, callback) => {
+    descricao = req.body.description;
+    prioridade = req.body.paciente_status;
+    var date = new Date();
+    var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida +
+        "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario +
+        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 1 AND " +
+        "servico.dataSaida IS NULL;")
     mySqlModule.query(sql, callback);
 }
