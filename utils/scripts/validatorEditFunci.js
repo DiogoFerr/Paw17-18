@@ -1,5 +1,4 @@
 function Validatinator(evt) {
-    var num = document.getElementById('num').value;
     var nome = document.getElementById('nome').value;
     var departamento = document.getElementById('departamento').value;
     var tipo = document.getElementById('tipo').value;
@@ -11,11 +10,6 @@ function Validatinator(evt) {
     var pattern_password = new RegExp("^.{4,8}$");
 
     var hasError = false;
-
-    if (!pattern_num.test(num)) {
-        alert("O numero de funcionario tem de ser constituido por 6 numeros!");
-        hasError = true;
-    }
 
     if (!pattern_string.test(nome)) {
         alert("Insira um nome valido com um minimo de 2 e um maximo de 45 caracteres");
@@ -49,7 +43,7 @@ function Validatinator(evt) {
 
 function initEvents() {
 
-    document.getElementById('registar').addEventListener('click', Validatinator, false);
+    document.getElementById('guardar').addEventListener('click', Validatinator, false);
 
 }
 
