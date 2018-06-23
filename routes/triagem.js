@@ -18,6 +18,24 @@ router.get('/', function (req, res) {
 
 });
 
+router.get('/pacientesAtendidos', function (req, res) {
+    console.log(req.user);
+    var userid = req.user[0].idFuncionario;
+    PacienteController.pacientesAtendidosTriagem(userid, (err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            for (let i = 0; i < result.length; i++) {
+                result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+            }
+            res.render('pacientesAtendidos', {
+                pacientes: result
+            });
+        }
+    });
+});
+
 router.get('/perfilPaciente/:nus', function (req, res) {
     let NUS = req.params.nus;
     PacienteController.getUserByNUS(NUS, (err, result) => {
@@ -32,12 +50,12 @@ router.get('/perfilPaciente/:nus', function (req, res) {
     });
 });
 
-router.post('/setPrioridadeUser/:nus', function (req, res){
+router.post('/setPrioridadeUser/:nus', function (req, res) {
     let nus = req.params.nus;
     servicoController.setPrioridade(req, nus, (err) => {
-        if (err || err === false){
+        if (err || err === false) {
             res.end("Erro: " + err);
-        }else{
+        } else {
             res.redirect('triagem');
         }
     });

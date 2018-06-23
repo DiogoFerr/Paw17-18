@@ -41,7 +41,12 @@ function countUserByNUS(NUS, callback) {
     Paciente.countUserByNUS(NUS, callback);
 }
 
-exports.countUserByNUS= countUserByNUS;
+function pacientesAtentididosTriagem(userid, callback) {
+    Paciente.pacientesAtendidosTriagem(userid, callback);
+
+}
+exports.pacientesAtendidosTriagem = pacientesAtentididosTriagem;
+exports.countUserByNUS = countUserByNUS;
 exports.getUserByNUS = getUserByNUS;
 exports.procurarPacientesTriagem = procurarPacientesTriagem;
 exports.procurarPacientesConsultas = procurarPacientesConsultas;

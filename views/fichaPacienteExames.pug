@@ -1,0 +1,17 @@
+extends layout
+block content
+    h2 Perfil do Utente #{paciente.nome}
+    div(class='triagem')
+        form(method="POST" action="/triagem/setPrioridadeUser/" + paciente.NUS)
+            label(id="nus" utente=paciente.NUS) NUS: 
+                span #{paciente.NUS}
+            label Data de Nascimento: 
+                span #{paciente.dataNascimento}
+            label Genero: 
+                span #{paciente.genero}
+            label Morada: 
+                span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
+            each exame in exames
+                
+                
+            

@@ -1,4 +1,5 @@
 const mysqlModule = require('./dbModel');
+const date = require('dateformat');
 
 class Paciente {
     constructor(NUS, nome, dataNascimento, genero, rua, concelho, distrito, pais) {
@@ -67,15 +68,15 @@ module.exports.procurarPacientesTriagem = (callback) => {
 
 module.exports.procurarPacientesConsultas = (callback) => {
     var sql = ("SELECT paciente.*, servico.prioridade, servico.dataEntrada " +
-    "FROM paciente " +
-    "INNER JOIN registo ON paciente.idPaciente = registo.idRegisto " +
-    "INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto " +
-    "WHERE servico.TipoServico_idTipoServico = 3 AND servico.dataSaida IS NULL " +
-    "ORDER BY " +     
-        "(CASE " + 
-            "WHEN (servico.prioridade = 'Vermelho') THEN 1 " + 
-            "WHEN (servico.prioridade = 'Amarelo') THEN 2 " +
-            "WHEN (servico.prioridade = 'Verde') THEN 3 " +
+        "FROM paciente " +
+        "INNER JOIN registo ON paciente.idPaciente = registo.idRegisto " +
+        "INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto " +
+        "WHERE servico.TipoServico_idTipoServico = 3 AND servico.dataSaida IS NULL " +
+        "ORDER BY " +
+        "(CASE " +
+        "WHEN (servico.prioridade = 'Vermelho') THEN 1 " +
+        "WHEN (servico.prioridade = 'Amarelo') THEN 2 " +
+        "WHEN (servico.prioridade = 'Verde') THEN 3 " +
         "END), servico.dataEntrada");
     mysqlModule.query(sql, callback);
 }
@@ -89,4 +90,15 @@ module.exports.countUserByNUS = (NUS, result, callback) => {
     var sql = ("SELECT COUNT(idPaciente) AS total FROM paciente WHERE NUS =" + NUS);
     mysqlModule.query(sql, result, callback);
 
+}
+
+module.exports.pacientesAtendidosTriagem = (userid, callback) => {
+    var datahoje = new Date();
+    datahoje = date(datahoje, "yyyy-mm-dd");
+    var sql = ("SELECT paciente.*, servico.dataEntrada, servico.dataSaida, servico.prioridade " +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.Paciente_idPaciente = paciente.idPaciente " +
+        "WHERE servico.TipoServico_idTipoServico = 1 AND servico.dataSaida LIKE '%" + datahoje + "%' AND servico.Funcionario_idFuncionario =" + userid);
+    mysqlModule.query(sql, callback);
 }
