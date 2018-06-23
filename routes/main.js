@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
 
 
 router.get('/login', function (req, res) {
-    if (req.user) {
+   /* if (req.user) {
         switch (req.user[0].Departamento_idDepartamento) {
             case 1:
                 res.redirect('/admin');
@@ -32,6 +32,7 @@ router.get('/login', function (req, res) {
     } else {
         res.render('index');
     }
+    */
 });
 
 router.get('/logout', function (req, res) {

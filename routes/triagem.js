@@ -4,6 +4,7 @@ const data = require('dateformat');
 
 const PacienteController = require("../controllers/pacienteController");
 const servicoController = require("../controllers/servicoController");
+const registoController = require("../controllers/registoController");
 
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesTriagem((err, result) => {
@@ -51,12 +52,20 @@ router.get('/perfilPaciente/:nus', function (req, res) {
 });
 
 router.post('/setPrioridadeUser/:nus', function (req, res) {
-    let nus = req.params.nus;
-    servicoController.setPrioridade(req, nus, (err) => {
-        if (err || err === false) {
-            res.end("Erro: " + err);
+    let id = req.user[0].idFuncionario;
+    let nus = req.param.nus;
+    registoController.getIdRegistoByNus(nus, (err, result) => {
+        var idRegisto = result[0].nus;
+        if (req.body.paciente_status != "Exame") {
+            servicoController.setPrioridade(idFuncionario, idRegisto, req, (err) => {
+                if (err || err === false) {
+                    res.end("Erro: " + err);
+                } else {
+                    res.redirect('triagem');
+                }
+            });
         } else {
-            res.redirect('triagem');
+
         }
     });
 });

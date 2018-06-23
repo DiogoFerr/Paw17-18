@@ -19,7 +19,7 @@ function registarServico(NUS, req, res) {
                             } else {
                                 var idRegisto = result[0].idRegisto;
                             }
-                            ServicoController.adicionarServicoTriagem(idPaciente, idRegisto, (err) => {
+                            ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                                 if (err || err === false) {
                                     res.end("Erro: " + err);
                                 } else {

@@ -48,9 +48,21 @@ class Servico {
 
 module.exports = Servico;
 
-module.exports.adicionarServicoTriagem = (NUS, id, callback) => {
+module.exports.adicionarServicoTriagem = (id, callback) => {
     var date = new Date();
     var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
     var sql = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', " + id + ", 1);");
+    mySqlModule.query(sql, callback);
+}
+
+module.exports.setPrioridade = (id, idRegisto, req, callback) => {
+    descricao = req.body.descricao;
+    prioridade = req.body.paciente_status;
+    var date = new Date();
+    var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida + "', prioridade='" + prioridade + 
+    "', descricao='" + descricao + "', Funcionario_idFuncionario =" + id +
+    " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 1 AND " +
+    "servico.dataSaida IS NULL;")
     mySqlModule.query(sql, callback);
 }
