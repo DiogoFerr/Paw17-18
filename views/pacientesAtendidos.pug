@@ -1,0 +1,18 @@
+extends layout
+block content
+    h2 Pacientes Atendidos
+    table
+        tr
+            th NUS
+            th Paciente
+            th Data Entrada
+            th Data Saida
+            th Estado
+        each paciente in pacientes
+            tr
+                td #{paciente.NUS} 
+                td #{paciente.nome}
+                td #{paciente.dataEntrada}
+                td #{paciente.dataSaida}
+                td  asdasd
+    a(href="/triagem/") Voltar
