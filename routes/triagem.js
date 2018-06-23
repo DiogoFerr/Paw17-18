@@ -52,20 +52,22 @@ router.get('/perfilPaciente/:nus', function (req, res) {
 });
 
 router.post('/setPrioridadeUser/:nus', function (req, res) {
-    let id = req.user[0].idFuncionario;
-    let nus = req.param.nus;
+    var idFuncionario = req.user[0].idFuncionario;
+    var nus = req.params.nus;
     registoController.getIdRegistoByNus(nus, (err, result) => {
-        var idRegisto = result[0].nus;
+        console.log(result[0].idRegisto + "registo");
+        var idRegisto = result[0].idRegisto;
         if (req.body.paciente_status != "Exame") {
             servicoController.setPrioridade(idFuncionario, idRegisto, req, (err) => {
                 if (err || err === false) {
                     res.end("Erro: " + err);
                 } else {
-                    res.redirect('triagem');
+
+                    res.redirect('/triagem');
                 }
             });
         } else {
-
+            
         }
     });
 });

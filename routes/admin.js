@@ -4,6 +4,18 @@ const FuncController = require("../controllers/funcionarioController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 
+function isAuth(){
+    if(req.user){
+        if(req.user[0].Departamento_idDepartamento === 1){
+            res.redirect('/');
+        }else{
+            //MANDA PARA A PAGINA DO DEPARTAMENTO DELE
+        }
+    }else{
+        res.redirect('/login');
+    }
+}
+
 router.get('/', function (req, res) {
     FuncController.procurarUtilizadores((err, result) => {
         if (err || err === false) {
@@ -14,7 +26,6 @@ router.get('/', function (req, res) {
             });
         }
     });
-
 });
 
 router.post('/novoFuncionario', function (req, res) {

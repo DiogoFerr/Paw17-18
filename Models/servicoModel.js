@@ -56,7 +56,7 @@ module.exports.adicionarServicoTriagem = (id, callback) => {
 }
 
 module.exports.setPrioridade = (id, idRegisto, req, callback) => {
-    descricao = req.body.descricao;
+    descricao = req.body.description;
     prioridade = req.body.paciente_status;
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
