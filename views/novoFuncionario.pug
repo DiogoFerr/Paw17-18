@@ -4,25 +4,27 @@ block content
     form(method="POST" action="/admin/novoFuncionario")
       label
         | Numero de Funcionario
-        input(type="text" name="num")
+        input(type="text" id="num" name="num")
       label
         | Nome do Funcionario
-        input(type="text" name="nome")
+        input(type="text" id="nome" name="nome")
       label
         | Departamento
-        select(name="departamento")
+        select(name="departamento" id="departamento")
           each departamento in departamentos
             option(value=departamento.idDepartamento)  #{departamento.nomeDepartamento}
       label
         | Tipo
-        select(name="tipo")
+        select(name="tipo" id="tipo")
           each tipo in tipos
             option(value=tipo.idTipoFuncionario) #{tipo.descricao}
       label
         | Palavra-Passe
-        input(type="password" name="password")
+        input(type="password" id="password" name="password")
       label
         | Confirmar Palavra-Passe
-        input(type="password" name="password2")
-      button(name="Registar" value="Registar") Registar
+        input(type="password" id="password2" name="password2")
+      button(name="Registar" id="Registar" value="Registar") Registar
+    script
+      include ../utils/scripts/validatorNovoFunci.js
     a(class='button' href='/admin') Voltar
