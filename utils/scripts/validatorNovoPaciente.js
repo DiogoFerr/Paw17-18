@@ -9,7 +9,7 @@ function Validatinator(evt) {
 
     var NUS = document.getElementById('NUS').value;
     var nome = document.getElementById('nome').value;
-    var date = document.getElementById('date').value;  
+    var date = document.getElementById('date').value;
     var tipo = document.getElementById('tipo').value;
     var rua = document.getElementById('rua').value;
     var concelho = document.getElementById('concelho').value;
@@ -31,18 +31,14 @@ function Validatinator(evt) {
         hasError = true;
     }
 
-    if (date > new Date().toISODate() || date < '1800/12/31' ) {
+    if (date > new Date().toISODate() || date < '1800/12/31') {
         alert("Data invalida!");
         hasError = true;
     }
 
-    if (tipo!=1 && tipo!=2) {
+    if (tipo != 1 && tipo != 2) {
         alert("Insira um genero valido!");
         hasError = true;
-    }
-
-    if (hasError) {
-        evt.preventDefault();
     }
 
     if (!pattern_string.test(rua)) {
@@ -61,7 +57,12 @@ function Validatinator(evt) {
         alert("Insira um pais valido com um minimo de 2 e um maximo de 45 caracteres");
         hasError = true;
     }
+
+    if (hasError) {
+        evt.preventDefault();
+    }
 }
+
 function initEvents() {
 
     document.getElementById('Registar').addEventListener('click', Validatinator, false);
