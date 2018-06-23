@@ -1,35 +1,35 @@
 extends layout
 block content
-    h2 Novo Paciente
-    form(method="POST" action="/receccao/novoPaciente")
-      label
-        | Nº Utente de Saúde 
-        input(id="nus" type="text" name="nus" maxlength="9")
-      label
-        | Nome
-        input(id="nome" type="text" name="nome" maxlength="45")
-      label
-        | Data Nascimento
-        input(id="date" type="date" name="dataNascimento")
-      label
-        | Género
-        select(id="tipo" name="tipo")
-          option(value="1") Masculino
-          option(value="2") Feminino
-      label
-        | Rua
-        input(id="rua" type="text" name="rua")
-      label
-        | Concelho
-        input(id="concelho" type="text" name="concelho")
-      label
-        | Distrito
-      label
-        input(id="distrito" type="text" name="distrito")
-      label
-        | Pais
-        input(id="pais" type="text" name="pais")
-      button(name="Registar" value="Registar") Registar Paciente
-    script
-        include ../utils/scripts/validatorNovoPaciente.js
-    button(onClick = "location.href='/receccao'") Voltar
+  h2 Novo Paciente
+  form(method="POST" action="/receccao/novoPaciente")
+    label
+      | Nº Utente de Saúde 
+      input(id="NUS" type="text" name="NUS" maxlength="9")
+    label
+      | Nome
+      input(id="nome" type="text" name="nome" maxlength="45")
+    label
+      | Data Nascimento
+      input(id="date" type="date" name="dataNascimento")
+    label
+      | Género
+      select(id="tipo" name="tipo")
+        option(value="1") Masculino
+        option(value="2") Feminino
+    label
+      | Rua
+      input(id="rua" type="text" name="rua")
+    label
+      | Concelho
+      input(id="concelho" type="text" name="concelho")
+    label
+      | Distrito
+    label
+      input(id="distrito" type="text" name="distrito")
+    label
+      | Pais
+      input(id="pais" type="text" name="pais")
+    button(name="Registar" id="Registar" value="Registar") Registar Paciente
+  script
+      include ../utils/scripts/validatorNovoPaciente.js
+  button(onClick = "location.href='/receccao'") Voltar
