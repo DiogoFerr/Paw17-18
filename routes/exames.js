@@ -5,7 +5,7 @@ const PacienteController = require("../controllers/pacienteController");
 const ExamesController = require("../controllers/examesController");
 
 router.get('/', function (req, res) {
-    PacienteController.procurarPacientes((err, result) => {
+    PacienteController.procurarPacientesExames((err, result) => {
         if (err || err === false) {
             res.end("Erro: " + err);
         } else {

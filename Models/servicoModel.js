@@ -94,6 +94,7 @@ module.exports.setToExames = (idFuncionario, idRegisto, req, callback) => {
     mySqlModule.query(sql, callback);
 }
 
+//SERVE PARA TERMINAR SERVICO APOS A CONSULTA E CONSECUTIVAMENTE O REGISTO (A SER FEITO NO REGISTO MODEL)
 module.exports.setTerminado = (idFuncionario, idRegisto, req, callback) => {
     var descricao = req.body.descricao;
     var date = new Date();

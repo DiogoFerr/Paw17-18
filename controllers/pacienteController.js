@@ -29,6 +29,10 @@ function procurarPacientesTriagem(callback) {
     Paciente.procurarPacientesTriagem(callback);
 }
 
+function procurarPacientesExames(callback){
+    Paciente.procurarPacientesExames(callback);
+}
+
 function procurarPacientesConsultas(callback) {
     Paciente.procurarPacientesConsultas(callback);
 }
@@ -51,3 +55,4 @@ exports.getUserByNUS = getUserByNUS;
 exports.procurarPacientesTriagem = procurarPacientesTriagem;
 exports.procurarPacientesConsultas = procurarPacientesConsultas;
 exports.adicionarPaciente = adicionarPaciente;
+exports.procurarPacientesExames = procurarPacientesExames;
