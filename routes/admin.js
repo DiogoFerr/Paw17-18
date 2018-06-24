@@ -3,15 +3,16 @@ const router = express.Router();
 const FuncController = require("../controllers/funcionarioController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
+const TipoExamesController = require("../controllers/tipoExameController");
 
-function isAuth(){
-    if(req.user){
-        if(req.user[0].Departamento_idDepartamento === 1){
+function isAuth() {
+    if (req.user) {
+        if (req.user[0].Departamento_idDepartamento === 1) {
             res.redirect('/');
-        }else{
+        } else {
             //MANDA PARA A PAGINA DO DEPARTAMENTO DELE
         }
-    }else{
+    } else {
         res.redirect('/login');
     }
 }
@@ -106,6 +107,31 @@ router.get('/deleteFuncionario', function (req, res) {
             res.redirect("/admin");
         }
     });
-})
+});
+
+router.get('/tiposExame', function (req, res) {
+    let exames;
+    TipoExamesController.getAllExames((err, result) => {
+        if (err || err === false) {
+            res.end("Erro:" + err);
+        } else {
+            exames = result;
+            res.render('adicionarExames', {
+                exames: exames,
+            });
+
+        }
+    });
+});
+
+router.post('/adicionarExames', function (req, res) {
+    TipoExamesController.adicionarTipoExame(nomeExame, (err) => {
+        if (err || err === false) {
+            res.end("Erro: " + err);
+        }else{
+            res.redirect('/admin');
+        }
+    });
+});
 
 module.exports = router;
