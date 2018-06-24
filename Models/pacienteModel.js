@@ -68,9 +68,9 @@ module.exports.procurarPacientesTriagem = (callback) => {
 
 module.exports.procurarPacientesConsultas = (callback) => {
     var sql = ("SELECT paciente.*, servico.prioridade, servico.dataEntrada " +
-        "FROM paciente " +
-        "INNER JOIN registo ON paciente.idPaciente = registo.idRegisto " +
-        "INNER JOIN servico ON registo.idRegisto = servico.Registo_idRegisto " +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
         "WHERE servico.TipoServico_idTipoServico = 3 AND servico.dataSaida IS NULL " +
         "ORDER BY " +
         "(CASE " +
