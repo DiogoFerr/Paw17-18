@@ -52,9 +52,14 @@ function editarFuncionario(id, req, callback) {
 
 function procurarUtilizadores(callback) {
     Funcionario.procurarUtilizadores(callback);
-
 }
+
+function countDoentesAtendidos(idFuncionario, callback){
+    Funcionario.countDoentesAtendidos(idFuncionario, callback);
+}
+
 exports.procurarUtilizadores = procurarUtilizadores;
 exports.adicionarFuncionario = adicionarFuncionario;
 exports.deleteFuncionario = deleteFuncionario;
 exports.editarFuncionario = editarFuncionario;
+exports.countDoentesAtendidos = countDoentesAtendidos;

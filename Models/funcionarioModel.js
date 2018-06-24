@@ -102,9 +102,3 @@ module.exports.countDoentesAtendidos = (idFuncionario, callback) => {
     mySqlModule.query(sql, callback);
 }
 
-/*
-module.exports.getUserPassword = (id, callback) => {
-    var x = mySqlModule.query("CALL getFuncById(1)", callback);
-}
-*/
-

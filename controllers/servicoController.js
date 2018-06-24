@@ -20,8 +20,18 @@ function setToExames(idFuncionario, idRegisto, req, callback){
     servico.setToExames(idFuncionario, idRegisto, req, callback);
 }
 
+function setTerminado(idFuncionario, idRegisto, req, callback){
+    servico.setTerminado(idFuncionario, idRegisto, req, callback);
+}
+
+function getAllServicosOfOneRegisto(idRegisto, callback){
+    servico.getAllServicosOfOneRegisto(idRegisto, callback);
+}
+
 exports.adicionarServicoTriagem = adicionarServicoTriagem;
 exports.adicionarServicoConsultas = adicionarServicoConsultas;
 exports.adicionarServicoExamesTriagem = adicionarServicoExamesTriagem;
 exports.setPrioridade = setPrioridade;
 exports.setToExames = setToExames;
+exports.setTerminado = setTerminado;
+exports.getAllServicosOfOneRegisto = getAllServicosOfOneRegisto;
