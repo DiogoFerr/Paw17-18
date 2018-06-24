@@ -96,6 +96,12 @@ module.exports.getUserPassword = (id, callback) => {
     mySqlModule.query(sql, callback);
 }
 
+//Conta numero de doentes atendidos por um funcionario
+module.exports.countDoentesAtendidos = (idFuncionario, callback) => {
+    var sql = ("SELECT count(servico.idServico) FROM servico WHERE servico.funcionario_idFuncionario =" + idFuncionario);
+    mySqlModule.query(sql, callback);
+}
+
 /*
 module.exports.getUserPassword = (id, callback) => {
     var x = mySqlModule.query("CALL getFuncById(1)", callback);

@@ -50,5 +50,18 @@ module.exports.fecharRegisto = (idRegisto, callback) => {
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
     var sql = ("UPDATE registo SET dataSaida ='" + dataSaida + "', estado='Terminado', " +
-    "WHERE idRegisto =" + idRegisto + " registo.dataSaida IS NULL;")
+        "WHERE idRegisto =" + idRegisto + " registo.dataSaida IS NULL;")
+    mysqlModule.query(sql, callback);
+}
+
+//VAI BUSCAR TODOS OS PACIENTES QUE JA TERMINARAM O REGISTO
+module.exports.getAllPacientes = (callback) => {
+    var sql = ("SELECT paciente.* FROM registo INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente WHERE registo.dataSaida IS NOT NULL");
+    mysqlModule.query(sql, callback);
+}
+
+//GET TODOS OS REGISTOS TERMINADOS DE UM PACIENTE
+module.exports.getAllRegistosOfOnePaciente = (idPaciente, callback) => {
+    var sql = ("SELECT * FROM registo WHERE registo.paciente_idpaciente =" + idPaciente + " AND registo.dataSaida IS NOT NULL");
+    mysqlModule.query(sql, callback);
 }

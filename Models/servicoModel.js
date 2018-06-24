@@ -104,3 +104,10 @@ module.exports.setTerminado = (idFuncionario, idRegisto, req, callback) => {
         "servico.dataSaida IS NULL;")
     mySqlModule.query(sql, callback);
 }
+
+//VAI BUSCAR TODOS OS SERVICOS REALIZADOS NUM REGISTO
+module.exports.getAllServicosOfOneRegisto = (idRegisto, callback) => {
+    var sql = ("SELECT * FROM servico WHERE servico.Registo_idRegisto =" + idRegisto);
+    mySqlModule.query(sql, callback);
+}
+

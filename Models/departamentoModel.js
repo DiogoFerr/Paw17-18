@@ -22,3 +22,11 @@ class Departamento {
 }
 
 module.exports = Departamento;
+
+//CONTA NUMERO DE DOENTES ATENDIDOS POR DEPARTAMENTO
+module.exports.countNumeroDoentesAtendidosPDepartamento = (idDepartamento, callback) => {
+    var sql = ("SELECT count(servico.idServico) FROM servico INNER JOIN funcionario ON servico.funcionario_idFuncionario = funcionario.idFuncionario " + 
+    "INNER JOIN departamento ON funcionario.Departamento_idDepartamento = departamento.idDepartamento " +
+    "WHERE departamento.idDepartamento =" + idDepartamento);
+    mySqlModule.query(sql, callback);
+}
