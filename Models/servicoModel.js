@@ -93,3 +93,14 @@ module.exports.setToExames = (idFuncionario, idRegisto, req, callback) => {
         "servico.dataSaida IS NULL;")
     mySqlModule.query(sql, callback);
 }
+
+module.exports.setTerminado = (idFuncionario, idRegisto, req, callback) => {
+    var descricao = req.body.descricao;
+    var date = new Date();
+    var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida +
+        "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario +
+        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 3 AND " +
+        "servico.dataSaida IS NULL;")
+    mySqlModule.query(sql, callback);
+}

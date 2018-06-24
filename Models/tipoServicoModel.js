@@ -19,3 +19,8 @@ class TipoServico{
 }
 
 module.exports = TipoServico;
+
+module.exports.getAllTipoServico = (callback) => {
+    var sql = ("SELECT * FROM tiposervico");
+    mysqlModule.query(sql, callback);
+}

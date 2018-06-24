@@ -45,3 +45,10 @@ module.exports.verificaExistenciaRegisto = (NUS, callback) => {
     var sql = ("SELECT COUNT(idRegisto) AS total FROM registo INNER JOIN paciente WHERE registo.Paciente_idPaciente = paciente.idPaciente AND registo.dataSaida IS NULL AND paciente.NUS =" + NUS + ";");
     mysqlModule.query(sql, callback);
 }
+
+module.exports.fecharRegisto = (idRegisto, callback) => {
+    var date = new Date();
+    var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("UPDATE registo SET dataSaida ='" + dataSaida + "', estado='Terminado', " +
+    "WHERE idRegisto =" + idRegisto + " registo.dataSaida IS NULL;")
+}
