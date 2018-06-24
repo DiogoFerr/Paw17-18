@@ -12,6 +12,8 @@ block content
             label Morada: 
                 span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
             each exame in exames
+                input(type='checkbox'name='agreement') #{exame.nomeExame}
+)
                 
                 
             

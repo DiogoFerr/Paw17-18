@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const PacienteController = require("../controllers/pacienteController");
-const ExamesController = require("../controllers/examesController");
+const TipoExamesController = require("../controllers/tipoExameController");
 
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesExames((err, result) => {
@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 
 
 router.get('/perfilPaciente', function (req, res) {
-    ExamesController.procurarExames((err, result) => {
+    TipoExamesController.procurarExames((err, result) => {
         if (err || err == false) {
             res.end("Erro: " + err);
         } else {
