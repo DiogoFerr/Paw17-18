@@ -6,7 +6,7 @@ const date = require('dateformat');
 
 function adicionarPaciente(req, callback) {
 
-    let NUS = req.sanitize(req.body.nus);
+    let NUS = req.sanitize(req.body.NUS);
     let nome = req.sanitize(req.body.nome);
     let data = req.sanitize(req.body.dataNascimento);
     let dataNascimento = date(data, "isoDate");

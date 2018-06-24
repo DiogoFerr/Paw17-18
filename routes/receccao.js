@@ -64,7 +64,7 @@ router.get('/novoPaciente', function (req, res) {
 
 
 router.post('/novoPaciente', function (req, res) {
-    var NUS = req.body.nus;
+    var NUS = req.body.NUS;
     PacienteController.adicionarPaciente(req, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
