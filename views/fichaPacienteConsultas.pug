@@ -2,7 +2,7 @@ extends layout
 block content
     h2 Perfil do Utente #{paciente.nome}
     div(class='triagem')
-        form(method="POST" action="/exames/realizados/" + paciente.NUS)
+        form(method="POST" action="/consultas/resultado/" + paciente.NUS)
             label(id="nus" utente=paciente.NUS) NUS: 
                 span #{paciente.NUS}
             label Data de Nascimento: 
@@ -11,11 +11,14 @@ block content
                 span #{paciente.genero}
             label Morada: 
                 span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
-            label Exames:
-            each exame in exames
-                | #{exame.nomeExame}
-                input(type="radio", name= "idExame", value= exame.idTipoExame)
+            label Opçoes:
+            | Terminar Consulta
+            input(type="radio", name="opcao", value="Terminado")
+            | Internar Paciente
+            input(type="radio", name="opcao", value="Internamento")
+            | Fazer Exames
+            input(type="radio", name="opcao", checked="true" value="Exame")
             label Observações
             textarea(name="descricao", cols="40", rows="5")
             button(id="submit" name="Submeter" value="Submeter") Submeter
-        a(href="/exames") Voltar atrás
+        a(href="/consultas") Voltar atrás

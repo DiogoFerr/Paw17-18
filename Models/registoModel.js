@@ -49,8 +49,8 @@ module.exports.verificaExistenciaRegisto = (NUS, callback) => {
 module.exports.fecharRegisto = (idRegisto, callback) => {
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
-    var sql = ("UPDATE registo SET dataSaida ='" + dataSaida + "', estado='Terminado', " +
-        "WHERE idRegisto =" + idRegisto + " registo.dataSaida IS NULL;")
+    var sql = ("UPDATE registo SET dataSaida ='" + dataSaida + "', estado ='Terminado' " +
+        "WHERE idRegisto = " + idRegisto + " AND registo.dataSaida IS NULL")
     mysqlModule.query(sql, callback);
 }
 

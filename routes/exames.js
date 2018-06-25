@@ -40,11 +40,11 @@ router.post('/realizados/:nus', function (req, res) {
             }
             ServicoController.terminarServicoExame(req, idFuncionario, idRegisto, (err) => {
                 if (err || err === false) {
-                    res.end("Erro3:" + err);
+                    res.end("Erro:" + err);
                 } else if (tipoServico == 2) {
                     ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                         if (err || err === false) {
-                            res.end("Erro1: " + err);
+                            res.end("Erro: " + err);
                         } else {
                             res.redirect("/exames");
                         }
