@@ -14,7 +14,7 @@ block content
             label Exames:
             each exame in exames
                 | #{exame.nomeExame}
-                input(type="radio", name="exame", value=exame.idExame)
+                input(type="radio", name= "idExame", value= exame.idTipoExame)
             label Observações
             textarea(name="descricao", cols="40", rows="5")
             button(id="submit" name="Submeter" value="Submeter") Submeter

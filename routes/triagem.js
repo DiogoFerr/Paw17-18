@@ -5,6 +5,8 @@ const data = require('dateformat');
 const PacienteController = require("../controllers/pacienteController");
 const servicoController = require("../controllers/servicoController");
 const registoController = require("../controllers/registoController");
+const SessaoController = require("../controllers/SessaoController");
+
 
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesTriagem((err, result) => {
@@ -20,7 +22,6 @@ router.get('/', function (req, res) {
 });
 
 router.get('/pacientesAtendidos', function (req, res) {
-    console.log(req.user);
     var userid = req.user[0].idFuncionario;
     PacienteController.pacientesAtendidosTriagem(userid, (err, result) => {
         if (err || err === false) {

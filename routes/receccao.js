@@ -3,6 +3,7 @@ const router = express.Router();
 const PacienteController = require("../controllers/pacienteController");
 const RegistoController = require("../controllers/registoController");
 const ServicoController = require("../controllers/servicoController");
+const SessaoController = require("../controllers/SessaoController");
 
 function registarServico(NUS, req, res) {
     PacienteController.getUserByNUS(NUS, (err, result) => {

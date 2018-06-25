@@ -6,7 +6,7 @@ const PacienteController = require("../controllers/pacienteController");
 const TipoExamesController = require("../controllers/tipoExameController");
 const ServicoController = require("../controllers/servicoController");
 const RegistoController = require("../controllers/registoController");
-
+const SessaoController = require("../controllers/SessaoController");
 
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesExames((err, result) => {
@@ -18,50 +18,48 @@ router.get('/', function (req, res) {
             });
         }
     });
-
 });
 
 
 router.post('/realizados/:nus', function (req, res) {
     let NUS = req.params.nus;
-    let idFuncionario = req.user.idFuncionario;
+    let idFuncionario = req.user[0].idFuncionario;
     let idRegisto;
     let prioridade;
-    ServicoController.vericarServico(NUS, (err, servico) => {
+    let tipoServico;
+    ServicoController.vericarServico(NUS, (err, result) => {
+        tipoServico = result[0].tipoServico_idTipoServico;
+        if (tipoServico == 4) {
+            prioridade = result[0].prioridade;
+        }
         RegistoController.getIdRegistoByNus(NUS, (err, result) => {
             if (err || err === false) {
                 res.end("Erro: " + err);
             } else {
                 idRegisto = result[0].idRegisto;
-                if (servico[0].tipoServico_idServico == 4) {
-                    prioridade = result[0].prioridade;
-                }
             }
-        });
-        ServicoController.terminarServicoExame(req , idFuncionario, idRegisto, (err) => {
-            if (err || err === false) {
-                res.end("Erro:" + err);
-            }
-        });
-        if (err || err === false) {
-            res.end("Erro:" + err);
-        } else if (servico[0].tipoServico_idServico == 2) {
-            ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
+            ServicoController.terminarServicoExame(req, idFuncionario, idRegisto, (err) => {
                 if (err || err === false) {
-                    res.end("Erro: " + err);
+                    res.end("Erro3:" + err);
+                } else if (tipoServico == 2) {
+                    ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
+                        if (err || err === false) {
+                            res.end("Erro1: " + err);
+                        } else {
+                            res.redirect("/exames");
+                        }
+                    });
                 } else {
-                    res.redirect("/exames");
+                    ServicoController.adicionarServicoConsultas(idRegisto, prioridade, (err) => {
+                        if (err || err === false) {
+                            res.end("Erro2: " + err);
+                        } else {
+                            res.redirect("/exames");
+                        }
+                    })
                 }
             });
-        } else {
-            ServicoController.adicionarServicoConsultas(idRegisto, prioridade, (err) => {
-                if (err || err === false) {
-                    res.end("Erro: " + err);
-                } else {
-                    res.redirect("/exames");
-                }
-            })
-        }
+        });
     });
 })
 
