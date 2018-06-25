@@ -113,7 +113,7 @@ module.exports.getAllServicosOfOneRegisto = (idRegisto, callback) => {
     mySqlModule.query(sql, callback);
 }
 
-module.exports.terminarServicoExames = (idFuncionario, idRegisto, descricao, idExame, callback) => {
+module.exports.terminarServicoExame = (idFuncionario, idRegisto, descricao, idExame, callback) => {
     var sql = ("UPDATE servico SET dataSaida ='" + dataSaida +
     "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario + "', tipoExame_idTipoExame=" + idExame +
     " WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 2) AND " +
