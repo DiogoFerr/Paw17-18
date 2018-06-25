@@ -117,3 +117,11 @@ module.exports.procurarPacientesExames = (callback) => {
             "END), servico.dataEntrada");
     mysqlModule.query(sql, callback);
 }
+
+module.exports.procurarPacientesRegistoTerminado = (callback) => {
+    var sql = ("SELECT paciente.*, registo.dataEntrada, registo.dataSaida " +
+    "FROM paciente " +
+    "INNER JOIN registo ON paciente.idPaciente = registo.paciente_idpaciente " +
+    "WHERE dataEntrada IS NOT NULL AND dataSaida IS NOT NULL");
+    mysqlModule.query(sql, callback);
+}

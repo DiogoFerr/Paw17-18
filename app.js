@@ -19,6 +19,7 @@ const exames = require('./routes/exames');
 const receccao = require('./routes/receccao');
 const consultas = require('./routes/consultas');
 const triagem = require('./routes/triagem');
+const gestao = require('./routes/gestao');
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +67,7 @@ app.use('/receccao', receccao);
 app.use('/triagem', triagem);
 app.use('/consultas', consultas);
 app.use('/exames', exames);
+app.use('/gestao', gestao);
 
 app.listen(8081, () => {
     console.log('App Listening on port 8080!');

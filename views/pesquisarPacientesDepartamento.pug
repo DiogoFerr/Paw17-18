@@ -1,0 +1,10 @@
+extends layout
+block content
+    h2 Pesquisar por Nome Departamento
+    form(method="POST" action  ="/gestao/mostrarPacientes/")   
+        | Departamento
+        select(name="departamento" id="departamento")
+          each departamento in departamentos
+            option(name="opcao" value=departamento.idDepartamento)  #{departamento.nomeDepartamento}
+        button(id="pesquisar" value="pesquisar") Pesquisar
+    button(onClick = "location.href='/logout'") Logout

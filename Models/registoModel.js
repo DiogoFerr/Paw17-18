@@ -65,3 +65,8 @@ module.exports.getAllRegistosOfOnePaciente = (idPaciente, callback) => {
     var sql = ("SELECT * FROM registo WHERE registo.paciente_idpaciente =" + idPaciente + " AND registo.dataSaida IS NOT NULL");
     mysqlModule.query(sql, callback);
 }
+
+module.exports.countAllRegistosTerminados = (callback) => {
+    var sql = ("SELECT COUNT(idRegisto) AS total FROM registo WHERE registo.dataSaida IS NOT NULL");
+    mysqlModule.query(sql, callback);
+}
