@@ -28,7 +28,7 @@ function terminarServicoExame(req, idFuncionario, idRegisto, callback) {
 
 function terminarServicoConsulta(req, idFuncionario, idRegisto, prioridade, callback) {
     let descricao = req.body.descricao;
-    servico.terminarServicoExame(idFuncionario, idRegisto, descricao, prioridade, callback);
+    servico.terminarServicoConsulta(idFuncionario, idRegisto, descricao, prioridade, callback);
 }
 
 function setPrioridade(idFuncionario, idRegisto, req, callback) {

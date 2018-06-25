@@ -63,7 +63,7 @@ module.exports.adicionarServicoExamesTriagem = (idRegisto, callback) => {
     mySqlModule.query(sql, callback);
 }
 
-module.exports.adicionarServicoExamesConsulta = (idRegisto, prioridade, callback) => {
+module.exports.adicionarServicoExamesConsultas = (idRegisto, prioridade, callback) => {
     var date = new Date();
     var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
     var sql = ("INSERT INTO servico (dataEntrada, prioridade, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', '" + prioridade + "', " + idRegisto + ", 4);");
@@ -140,9 +140,11 @@ module.exports.terminarServicoExame = (idFuncionario, idRegisto, descricao, idEx
 module.exports.terminarServicoConsulta = (idFuncionario, idRegisto, descricao, prioridade, callback) => {
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
-    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida + "', prioridade = '" + prioridade + "', descricao ='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario +
-        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 4) AND " +
-        "servico.dataSaida IS NULL");
+    var sql = ("UPDATE servico " +
+        " SET dataSaida='" + dataSaida + "', " +
+        " prioridade= '" + prioridade + "', " +
+        " descricao='" + descricao + "', Funcionario_idFuncionario = " + idFuncionario +
+        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND servico.TipoServico_idTipoServico = 3 AND servico.dataSaida IS NULL");
     mySqlModule.query(sql, callback);
 }
 
