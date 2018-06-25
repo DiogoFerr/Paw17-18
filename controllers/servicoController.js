@@ -16,10 +16,10 @@ function adicionarServicoInternamento(idRegisto, prioridade, callback) {
     servico.adicionarServicoInternamento(idRegisto, prioridade, callback);
 }
 
-function terminarServicoExames(req, idFuncionario, idRegisto, callback) {
+function terminarServicoExame(req, idFuncionario, idRegisto, callback) {
     let descricao = req.body.descricao;
-    let idExame = req.body.exame;
-    servico.terminarServicoExames(idFuncionario, idRegisto, descricao, idExame, callback);
+    let idExame = req.body.idExame;
+    servico.terminarServicoExame(idFuncionario, idRegisto, descricao, idExame, callback);
 }
 
 function setPrioridade(idFuncionario, idRegisto, req, callback) {
@@ -42,7 +42,7 @@ function vericarServico(NUS, callback) {
     servico.verificarServico(NUS, callback);
 }
 
-exports.terminarServicoExames = terminarServicoExames;
+exports.terminarServicoExame = terminarServicoExame;
 exports.vericarServico = vericarServico;
 exports.adicionarServicoTriagem = adicionarServicoTriagem;
 exports.adicionarServicoConsultas = adicionarServicoConsultas;

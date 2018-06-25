@@ -121,19 +121,28 @@ module.exports.getAllServicosOfOneRegisto = (idRegisto, callback) => {
 }
 
 module.exports.terminarServicoExame = (idFuncionario, idRegisto, descricao, idExame, callback) => {
+<<<<<<< HEAD
     var sql = ("UPDATE servico SET dataSaida ='" + dataSaida +
         "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario + "', tipoExame_idTipoExame=" + idExame +
         " WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 2) AND " +
         "servico.dataSaida IS NULL;");
+=======
+    var date = new Date();
+    var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("UPDATE servico SET dataSaida ='" + dataSaida + "', " +
+        "descricao='" + descricao + "', Funcionario_idFuncionario=" + idFuncionario + ", tipoExame_idTipoExame=" + idExame + " "+
+        "WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 4) AND " +
+        "servico.dataSaida IS NULL");
+>>>>>>> 5b98febb052c664cd9f455ca28dd9503b49fadc8
     mySqlModule.query(sql, callback);
 }
 
 module.exports.verificarServico = (NUS, callback) => {
-    var sql = ("SELECT servico.tipoServico_idTipoServico, servico.prioridade" +
+    var sql = ("SELECT servico.tipoServico_idTipoServico, servico.prioridade " +
         "FROM servico " +
         "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
         "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
-        "WHERE paciente_NUS = " + NUS + " AND servico.dataSaida IS NULL");
+        "WHERE paciente.NUS =" + NUS + " AND servico.dataSaida IS NULL");
     mySqlModule.query(sql, callback);
 }
 

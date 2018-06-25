@@ -4,18 +4,7 @@ const FuncController = require("../controllers/funcionarioController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 const TipoExamesController = require("../controllers/tipoExameController");
-
-function isAuth() {
-    if (req.user) {
-        if (req.user[0].Departamento_idDepartamento === 1) {
-            res.redirect('/');
-        } else {
-            //MANDA PARA A PAGINA DO DEPARTAMENTO DELE
-        }
-    } else {
-        res.redirect('/login');
-    }
-}
+const SessaoController = require("../controllers/SessaoController");
 
 router.get('/', function (req, res) {
     FuncController.procurarUtilizadores((err, result) => {
@@ -128,7 +117,7 @@ router.post('/adicionarExames', function (req, res) {
     TipoExamesController.adicionarTipoExame(nomeExame, (err) => {
         if (err || err === false) {
             res.end("Erro: " + err);
-        }else{
+        } else {
             res.redirect('/admin');
         }
     });

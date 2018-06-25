@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require('dateformat');
 const PacienteController = require("../controllers/pacienteController");
-
+const SessaoController = require("../controllers/SessaoController");
 
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesConsultas((err, result) => {
