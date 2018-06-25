@@ -70,6 +70,13 @@ module.exports.adicionarServicoConsultas = (idRegisto, prioridade, callback) => 
     mySqlModule.query(sql, callback);
 }
 
+module.exports.adicionarServicoInternamento = (idRegisto, prioridade, callback) => {
+    var date = new Date();
+    var dataEntrada = data(date, 'yyyy-mm-dd HH:MM:ss');
+    var sql = ("INSERT INTO servico (dataEntrada, prioridade, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', '" + prioridade + "', " + idRegisto + ", 6);");
+    mySqlModule.query(sql, callback);
+}
+
 module.exports.setPrioridade = (idFuncionario, idRegisto, req, callback) => {
     descricao = req.body.description;
     prioridade = req.body.paciente_status;
@@ -115,9 +122,9 @@ module.exports.getAllServicosOfOneRegisto = (idRegisto, callback) => {
 
 module.exports.terminarServicoExame = (idFuncionario, idRegisto, descricao, idExame, callback) => {
     var sql = ("UPDATE servico SET dataSaida ='" + dataSaida +
-    "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario + "', tipoExame_idTipoExame=" + idExame +
-    " WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 2) AND " +
-    "servico.dataSaida IS NULL;");
+        "', descricao='" + descricao + "', Funcionario_idFuncionario =" + idFuncionario + "', tipoExame_idTipoExame=" + idExame +
+        " WHERE servico.Registo_idRegisto =" + idRegisto + " AND (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 2) AND " +
+        "servico.dataSaida IS NULL;");
     mySqlModule.query(sql, callback);
 }
 

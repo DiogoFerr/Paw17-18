@@ -12,6 +12,9 @@ function adicionarServicoExamesTriagem(idRegisto, callback) {
     servico.adicionarServicoExamesTriagem(idRegisto, callback);
 }
 
+function adicionarServicoInternamento(idRegisto, prioridade, callback) {
+    servico.adicionarServicoInternamento(idRegisto, prioridade, callback);
+}
 
 function terminarServicoExames(req, idFuncionario, idRegisto, callback) {
     let descricao = req.body.descricao;
@@ -44,6 +47,7 @@ exports.vericarServico = vericarServico;
 exports.adicionarServicoTriagem = adicionarServicoTriagem;
 exports.adicionarServicoConsultas = adicionarServicoConsultas;
 exports.adicionarServicoExamesTriagem = adicionarServicoExamesTriagem;
+exports.adicionarServicoInternamento = adicionarServicoInternamento;
 exports.setPrioridade = setPrioridade;
 exports.setToExames = setToExames;
 exports.setTerminado = setTerminado;
