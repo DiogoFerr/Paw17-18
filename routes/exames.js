@@ -24,6 +24,7 @@ router.get('/', function (req, res) {
 
 router.post('/realizados/:nus', function (req, res) {
     let NUS = req.params.nus;
+    let idFuncionario = req.user.idFuncionario;
     let idRegisto;
     let prioridade;
     ServicoController.vericarServico(NUS, (err, servico) => {
@@ -37,7 +38,7 @@ router.post('/realizados/:nus', function (req, res) {
                 }
             }
         });
-        ServicoController.terminarServicoExame(req, (err) => {
+        ServicoController.terminarServicoExame(req , idFuncionario, idRegisto, (err) => {
             if (err || err === false) {
                 res.end("Erro:" + err);
             }

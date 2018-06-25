@@ -13,10 +13,10 @@ function adicionarServicoExamesTriagem(idRegisto, callback) {
 }
 
 
-function terminarServicoExames(req, callback) {
+function terminarServicoExames(req, idFuncionario, idRegisto, callback) {
     let descricao = req.body.descricao;
     let idExame = req.body.exame;
-    servico.terminarServicoExames(descricao, idExame, callback);
+    servico.terminarServicoExames(idFuncionario, idRegisto, descricao, idExame, callback);
 }
 
 function setPrioridade(idFuncionario, idRegisto, req, callback) {
