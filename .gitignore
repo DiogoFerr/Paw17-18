@@ -21,3 +21,6 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+node_modules/bcrypt/lib/binding/bcrypt_lib.node
+package-lock.json
+node_modules/bcrypt/package.json
