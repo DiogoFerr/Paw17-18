@@ -2,7 +2,7 @@ extends layout
 block content
     h2 Perfil do Utente #{paciente.nome}
     div(class='triagem')
-        form(method="POST" action="/triagem/setPrioridadeUser/" + paciente.NUS)
+        form(method="POST" action="/exames/realizados/" + paciente.NUS)
             label(id="nus" utente=paciente.NUS) NUS: 
                 span #{paciente.NUS}
             label Data de Nascimento: 
@@ -11,9 +11,11 @@ block content
                 span #{paciente.genero}
             label Morada: 
                 span #{paciente.rua} , #{paciente.concelho} , #{paciente.distrito} , #{paciente.pais}
+            label Exames:
             each exame in exames
-                input(type='checkbox'name='agreement') #{exame.nomeExame}
-)
-                
-                
-            
+                | #{exame.nomeExame}
+                input(type="radio", name="exame", value=exame.idExame)
+            label Observações
+            textarea(name="descricao", cols="40", rows="5")
+            button(id="submit" name="Submeter" value="Submeter") Submeter
+        button(onclick="location.href='/exames'") Voltar atrás

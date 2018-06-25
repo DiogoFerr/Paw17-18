@@ -7,9 +7,9 @@ class Servico {
         this._dataEntrada = dataEntrada;
         this._dataSaida = null;
         this._prioridade = null;
-        this._descricao = descricao;
+        this._descricao = null;
         this._idRegisto = idRegisto;
-        this._idFuncionario = idFuncionario;
+        this._idFuncionario = null;
         this._idTipoServico = idTipoServico;
     }
 
@@ -54,6 +54,7 @@ module.exports.adicionarServicoTriagem = (id, callback) => {
     var sql = ("INSERT INTO servico (dataEntrada, Registo_idRegisto, TipoServico_idTipoServico) VALUES ('" + dataEntrada + "', " + id + ", 1);");
     mySqlModule.query(sql, callback);
 }
+
 
 module.exports.adicionarServicoExamesTriagem = (idRegisto, callback) => {
     var date = new Date();
@@ -109,6 +110,18 @@ module.exports.setTerminado = (idFuncionario, idRegisto, req, callback) => {
 //VAI BUSCAR TODOS OS SERVICOS REALIZADOS NUM REGISTO
 module.exports.getAllServicosOfOneRegisto = (idRegisto, callback) => {
     var sql = ("SELECT * FROM servico WHERE servico.Registo_idRegisto =" + idRegisto);
+    mySqlModule.query(sql, callback);
+}
+
+module.exports.terminarServicoExames = (descricao, idExame, callback){
+
+}
+module.exports.verificarServico = (NUS, callback) => {
+    var sql = ("SELECT servico.tipoServico_idTipoServico, servico.prioridade" +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
+        "WHERE paciente_NUS = " + NUS + " AND servico.dataSaida IS NULL");
     mySqlModule.query(sql, callback);
 }
 
