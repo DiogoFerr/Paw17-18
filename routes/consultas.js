@@ -28,7 +28,6 @@ router.get('/perfilPaciente/:nus', function (req, res) {
         if (err || err === false) {
             res.redirect('/erro');
         } else {
-            console.log(result[0]);
             res.render("fichaPacienteConsultas", {
                 paciente: result[0]
             });

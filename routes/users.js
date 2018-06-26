@@ -36,9 +36,6 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {
-    console.log("Serialize:");
-    console.log(user);
-
     done(null, user[0].numFuncionario);
 });
 
