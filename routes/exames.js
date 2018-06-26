@@ -7,17 +7,28 @@ const TipoExamesController = require("../controllers/tipoExameController");
 const ServicoController = require("../controllers/servicoController");
 const RegistoController = require("../controllers/registoController");
 const SessaoController = require("../controllers/SessaoController");
+const numeroExames = 4;
 
-router.get('/', function (req, res) {
-    PacienteController.procurarPacientesExames((err, result) => {
-        if (err || err === false) {
-           res.redirect('/erro');
-        } else {
-            res.render("paginaInicialExames", {
-                pacientes: result
-            });
-        }
-    });
+function exames(req, res) {
+    if (req.user[0].Departamento_idDepartamento === numeroExames) {
+        return true;
+    } else {
+        res.redirect('/login');
+    }
+}
+
+router.get('/', SessaoController.requireAuth, function (req, res) {
+    if (exames(req, res)) {
+        PacienteController.procurarPacientesExames((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                res.render("paginaInicialExames", {
+                    pacientes: result
+                });
+            }
+        });
+    }
 });
 
 
@@ -34,7 +45,7 @@ router.post('/realizados/:nus', function (req, res) {
         }
         RegistoController.getIdRegistoByNus(NUS, (err, result) => {
             if (err || err === false) {
-               res.redirect('/erro');
+                res.redirect('/erro');
             } else {
                 idRegisto = result[0].idRegisto;
             }
@@ -44,7 +55,7 @@ router.post('/realizados/:nus', function (req, res) {
                 } else if (tipoServico == 2) {
                     ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                         if (err || err === false) {
-                           res.redirect('/erro');
+                            res.redirect('/erro');
                         } else {
                             res.redirect("/exames");
                         }
@@ -63,27 +74,29 @@ router.post('/realizados/:nus', function (req, res) {
     });
 })
 
-router.get('/perfilPaciente/:nus', function (req, res) {
-    let NUS = req.params.nus;
-    let paciente;
-    PacienteController.getUserByNUS(NUS, (err, result) => {
-        if (err || err === false) {
-           res.redirect('/erro');
-        } else {
-            result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
-            paciente = result[0];
-        }
-    });
-    TipoExamesController.getAllExames((err, result) => {
-        if (err || err == false) {
-           res.redirect('/erro');
-        } else {
-            res.render("fichaPacienteExames", {
-                exames: result,
-                paciente: paciente
-            });
-        }
-    })
+router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
+    if (gestao(req, res)) {
+        let NUS = req.params.nus;
+        let paciente;
+        PacienteController.getUserByNUS(NUS, (err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
+                paciente = result[0];
+            }
+        });
+        TipoExamesController.getAllExames((err, result) => {
+            if (err || err == false) {
+                res.redirect('/erro');
+            } else {
+                res.render("fichaPacienteExames", {
+                    exames: result,
+                    paciente: paciente
+                });
+            }
+        });
+    }
+});
 
-})
 module.exports = router;

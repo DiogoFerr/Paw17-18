@@ -5,34 +5,46 @@ const PacienteController = require("../controllers/pacienteController");
 const ServicoController = require("../controllers/servicoController");
 const SessaoController = require("../controllers/SessaoController");
 const RegistoController = require("../controllers/registoController");
+const numeroConsultas = 2;
 
-router.get('/', function (req, res) {
-    PacienteController.procurarPacientesConsultas((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            for (let i = 0; i < result.length; i++) {
-                result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+function consultas(req, res) {
+    if (req.user[0].Departamento_idDepartamento === numeroConsultas) {
+        return true;
+    } else {
+        res.redirect('/login');
+    }
+}
+
+router.get('/', SessaoController.requireAuth, function (req, res) {
+    if (consultas(req, res)) {
+        PacienteController.procurarPacientesConsultas((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                for (let i = 0; i < result.length; i++) {
+                    result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                }
+                res.render("paginaInicialConsultas", {
+                    pacientes: result
+                });
             }
-            res.render("paginaInicialConsultas", {
-                pacientes: result
-            });
-        }
-    });
-
+        });
+    }
 });
 
-router.get('/perfilPaciente/:nus', function (req, res) {
-    let NUS = req.params.nus;
-    PacienteController.getUserByNUS(NUS, (err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            res.render("fichaPacienteConsultas", {
-                paciente: result[0]
-            });
-        }
-    });
+router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
+    if (consultas(req, res)) {
+        let NUS = req.params.nus;
+        PacienteController.getUserByNUS(NUS, (err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                res.render("fichaPacienteConsultas", {
+                    paciente: result[0]
+                });
+            }
+        });
+    }
 });
 
 

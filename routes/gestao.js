@@ -4,45 +4,60 @@ const pacienteController = require("../controllers/pacienteController");
 const registoController = require("../controllers/registoController");
 const departamentoController = require("../controllers/departamentoController");
 const funcionarioController = require("../controllers/funcionarioController");
+const SessaoController = require("../controllers/SessaoController");
 const data = require('dateformat');
+const numeroGestao = 5;
 
-router.get('/', function (req, res) {
-    pacienteController.procurarPacientesRegistoTerminado((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            registoController.countAllRegistosTerminados((err, count) => {
-                if (err || err === false) {
-                    res.redirect('/erro');
-                }
-                totalPacientes = count[0].total;
-                for (let i = 0; i < result.length; i++) {
-                    result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
-                    result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
-                }
-                res.render("paginaInicialGestor", {
-                    pacientes: result,
-                    totalPacientes
+function gestao(req, res) {
+    if (req.user[0].Departamento_idDepartamento === numeroGestao) {
+        return true;
+    } else {
+        res.redirect('/login');
+    }
+}
+
+router.get('/', SessaoController.requireAuth, function (req, res) {
+    if (gestao(req, res)) {
+        pacienteController.procurarPacientesRegistoTerminado((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                registoController.countAllRegistosTerminados((err, count) => {
+                    if (err || err === false) {
+                        res.redirect('/erro');
+                    }
+                    totalPacientes = count[0].total;
+                    for (let i = 0; i < result.length; i++) {
+                        result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                        result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+                    }
+                    res.render("paginaInicialGestor", {
+                        pacientes: result,
+                        totalPacientes
+                    });
                 });
-            });
-        }
-    });
+            }
+        });
+    }
 });
 
-router.get('/pesquisaDepartamento', function (req, res) {
-    departamentoController.getDepartamentosDoentes((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            res.render("pesquisarPacientesDepartamento", {
-                departamentos: result,
-            });
-        }
-    });
+router.get('/pesquisaDepartamento', SessaoController.requireAuth, function (req, res) {
+    if (gestao(req, res)) {
+        departamentoController.getDepartamentosDoentes((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                res.render("pesquisarPacientesDepartamento", {
+                    departamentos: result,
+                });
+            }
+        });
+    }
 });
 
-router.get('/pesquisaFuncionario', function (req, res) {
-    res.render("pesquisaPacientesFuncionario");
+router.get('/pesquisaFuncionario', SessaoController.requireAuth, function (req, res) {
+    if (gestao(req, res))
+        res.render("pesquisaPacientesFuncionario");
 });
 
 router.post('/mostrarPacientes', function (req, res) {
@@ -95,8 +110,9 @@ router.post('/mostrarPacientes', function (req, res) {
 
 });
 
-router.get('/mostrarPacientes', function (req, res) {
-    res.render('mostrarPacientes');
+router.get('/mostrarPacientes', SessaoController.requireAuth, function (req, res) {
+    if (gestao(req, res))
+        res.render('mostrarPacientes');
 });
 
 module.exports = router;

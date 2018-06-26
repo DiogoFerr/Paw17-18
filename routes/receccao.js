@@ -4,6 +4,15 @@ const PacienteController = require("../controllers/pacienteController");
 const RegistoController = require("../controllers/registoController");
 const ServicoController = require("../controllers/servicoController");
 const SessaoController = require("../controllers/SessaoController");
+const numeroRececao = 6;
+
+function rececao(req, res) {
+    if (req.user[0].Departamento_idDepartamento === numeroRececao) {
+        return true;
+    } else {
+        res.redirect('/login');
+    }
+}
 
 function registarServico(NUS, req, res) {
     PacienteController.getUserByNUS(NUS, (err, result) => {
@@ -12,17 +21,17 @@ function registarServico(NUS, req, res) {
             if (result[0].total === 0) {
                 RegistoController.adicionarRegisto(idPaciente, (err) => {
                     if (err || err === false) {
-                       res.redirect('/erro');
+                        res.redirect('/erro');
                     } else {
                         RegistoController.getIdRegistoByNus(NUS, (err, result) => {
                             if (err || err === false) {
-                               res.redirect('/erro');
+                                res.redirect('/erro');
                             } else {
                                 var idRegisto = result[0].idRegisto;
                             }
                             ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                                 if (err || err === false) {
-                                   res.redirect('/erro');
+                                    res.redirect('/erro');
                                 } else {
                                     res.redirect('/receccao');
                                 }
@@ -38,10 +47,9 @@ function registarServico(NUS, req, res) {
     });
 }
 
-
-
-router.get('/', function (req, res) {
-    res.render('pesquisarPaciente');
+router.get('/', SessaoController.requireAuth, function (req, res) {
+    if (rececao(req, res))
+        res.render('pesquisarPaciente');
 });
 
 router.post('/pesquisar', function (req, res) {
@@ -59,16 +67,17 @@ router.post('/pesquisar', function (req, res) {
     });
 });
 
-router.get('/novoPaciente', function (req, res) {
-    res.render('novoPaciente');
-})
+router.get('/novoPaciente', SessaoController.requireAuth, function (req, res) {
+    if (rececao(req, res))
+        res.render('novoPaciente');
+});
 
 
 router.post('/novoPaciente', function (req, res) {
     var NUS = req.body.NUS;
     PacienteController.adicionarPaciente(req, (err) => {
         if (err || err === false) {
-           res.redirect('/erro');
+            res.redirect('/erro');
         } else {
             registarServico(NUS, req, res);
         }

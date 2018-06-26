@@ -5,17 +5,28 @@ const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 const TipoExamesController = require("../controllers/tipoExameController");
 const SessaoController = require("../controllers/SessaoController");
+const numeroAdmin = 1;
 
-router.get('/', function (req, res) {
-    FuncController.procurarUtilizadores((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            res.render("paginaInicialAdmin", {
-                funcionarios: result
-            });
-        }
-    });
+function admin(req, res) {
+    if (req.user[0].Departamento_idDepartamento === numeroAdmin) {
+        return true;
+    } else {
+        res.redirect('/login');
+    }
+}
+
+router.get('/', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        FuncController.procurarUtilizadores((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                res.render("paginaInicialAdmin", {
+                    funcionarios: result
+                });
+            }
+        });
+    }
 });
 
 router.post('/novoFuncionario', function (req, res) {
@@ -28,27 +39,29 @@ router.post('/novoFuncionario', function (req, res) {
     });
 });
 
-router.get('/novoFuncionario', function (req, res) {
-    let departamentos, tipos;
-    DepartamentoController.getDepartamentos((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            departamentos = result;
-        }
-    });
-    TipoFuncController.getTipos((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            tipos = result;
-            res.render('novoFuncionario', {
-                tipos: tipos,
-                departamentos: departamentos
-            });
+router.get('/novoFuncionario', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        let departamentos, tipos;
+        DepartamentoController.getDepartamentos((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                departamentos = result;
+            }
+        });
+        TipoFuncController.getTipos((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                tipos = result;
+                res.render('novoFuncionario', {
+                    tipos: tipos,
+                    departamentos: departamentos
+                });
 
-        }
-    });
+            }
+        });
+    }
 });
 
 router.post('/editarFuncionario', function (req, res) {
@@ -62,55 +75,61 @@ router.post('/editarFuncionario', function (req, res) {
     })
 });
 
-router.get('/editarFuncionario', function (req, res) {
-    let id = req.query.id;
-    let departamentos, tipos;
-    DepartamentoController.getDepartamentos((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            departamentos = result;
-        }
-    });
-    TipoFuncController.getTipos((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            tipos = result;
-            res.render('editarFuncionario', {
-                id: id,
-                tipos: tipos,
-                departamentos: departamentos
-            });
+router.get('/editarFuncionario', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        let id = req.query.id;
+        let departamentos, tipos;
+        DepartamentoController.getDepartamentos((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                departamentos = result;
+            }
+        });
+        TipoFuncController.getTipos((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                tipos = result;
+                res.render('editarFuncionario', {
+                    id: id,
+                    tipos: tipos,
+                    departamentos: departamentos
+                });
 
-        }
-    });
+            }
+        });
+    }
 });
 
-router.get('/deleteFuncionario', function (req, res) {
-    let id = req.query.id;
-    FuncController.deleteFuncionario(id, (err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            res.redirect("/admin");
-        }
-    });
+router.get('/deleteFuncionario', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        let id = req.query.id;
+        FuncController.deleteFuncionario(id, (err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                res.redirect("/admin");
+            }
+        });
+    }
 });
 
-router.get('/tiposExame', function (req, res) {
-    let exames;
-    TipoExamesController.getAllExames((err, result) => {
-        if (err || err === false) {
-            res.redirect('/erro');
-        } else {
-            exames = result;
-            res.render('novoExame', {
-                exames: exames,
-            });
+router.get('/tiposExame', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        let exames;
+        TipoExamesController.getAllExames((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                exames = result;
+                res.render('novoExame', {
+                    exames: exames,
+                });
 
-        }
-    });
+            }
+        });
+    }
 });
 
 router.post('/adicionarExames', function (req, res) {

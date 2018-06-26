@@ -6,7 +6,6 @@ router.get('/', function (req, res) {
     res.redirect('/login');
 });
 
-
 router.get('/login', function (req, res) {
     if (req.user) {
         switch (req.user[0].Departamento_idDepartamento) {
@@ -28,20 +27,20 @@ router.get('/login', function (req, res) {
             case 6:
                 res.redirect('/receccao');
                 break;
-            default:
-                res.render('/index');
-                break;
         }
     } else {
         res.render('index');
     }
+
 });
 
 router.get('/erro', function (req, res) {
     res.render('erro');
 });
+
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
+
 module.exports = router;
