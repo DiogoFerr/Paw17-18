@@ -11,7 +11,7 @@ const SessaoController = require("../controllers/SessaoController");
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesTriagem((err, result) => {
         if (err || err === false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             res.render("paginaInicialTriagem", {
                 pacientes: result
@@ -42,7 +42,7 @@ router.get('/perfilPaciente/:nus', function (req, res) {
     let NUS = req.params.nus;
     PacienteController.getUserByNUS(NUS, (err, result) => {
         if (err || err === false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
             res.render("fichaPaciente", {
@@ -61,11 +61,11 @@ router.post('/setPrioridadeUser/:nus', function (req, res) {
         if (prioridade != "Exame") {
             servicoController.setPrioridade(idFuncionario, idRegisto, req, (err) => {
                 if (err || err === false) {
-                    res.end("Erro: " + err);
+                   res.redirect('/erro');
                 } else {
                     servicoController.adicionarServicoConsultas(idRegisto, prioridade, (err) => {
                         if (err || err === false) {
-                            res.end("Erro: " + err);
+                           res.redirect('/erro');
                         } else {
                             res.redirect('/triagem');
                         }
@@ -79,7 +79,7 @@ router.post('/setPrioridadeUser/:nus', function (req, res) {
                 } else {
                     servicoController.adicionarServicoExamesTriagem(idRegisto, (err) => {
                         if (err || err === false) {
-                            res.end("Erro: " + err);
+                           res.redirect('/erro');
                         } else {
                             res.redirect('/triagem');
                         }

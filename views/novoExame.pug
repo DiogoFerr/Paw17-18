@@ -1,0 +1,14 @@
+extends layout
+block content
+    table
+      tr
+        th Exames Existentes
+      each exame in exames
+        tr
+          td  #{exame.nomeExame}
+    form(method= "POST" action="/admin/adicionarExames")
+        label
+            | Nome do Exame
+            input(type="text" id="exame" name="exame")
+        button(name="Submeter" id="Submeter" value="Submeter") Inserir Novo Exame
+    a(class='button' href='/admin') Voltar

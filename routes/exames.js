@@ -11,7 +11,7 @@ const SessaoController = require("../controllers/SessaoController");
 router.get('/', function (req, res) {
     PacienteController.procurarPacientesExames((err, result) => {
         if (err || err === false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             res.render("paginaInicialExames", {
                 pacientes: result
@@ -34,17 +34,17 @@ router.post('/realizados/:nus', function (req, res) {
         }
         RegistoController.getIdRegistoByNus(NUS, (err, result) => {
             if (err || err === false) {
-                res.end("Erro: " + err);
+               res.redirect('/erro');
             } else {
                 idRegisto = result[0].idRegisto;
             }
             ServicoController.terminarServicoExame(req, idFuncionario, idRegisto, (err) => {
                 if (err || err === false) {
-                    res.end("Erro3:" + err);
+                    res.end("Erro:" + err);
                 } else if (tipoServico == 2) {
                     ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                         if (err || err === false) {
-                            res.end("Erro1: " + err);
+                           res.redirect('/erro');
                         } else {
                             res.redirect("/exames");
                         }
@@ -68,7 +68,7 @@ router.get('/perfilPaciente/:nus', function (req, res) {
     let paciente;
     PacienteController.getUserByNUS(NUS, (err, result) => {
         if (err || err === false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
             paciente = result[0];
@@ -76,7 +76,7 @@ router.get('/perfilPaciente/:nus', function (req, res) {
     });
     TipoExamesController.getAllExames((err, result) => {
         if (err || err == false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             res.render("fichaPacienteExames", {
                 exames: result,

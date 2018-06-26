@@ -37,6 +37,9 @@ router.get('/login', function (req, res) {
     }
 });
 
+router.get('/erro', function (req, res) {
+    res.render('erro');
+});
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
