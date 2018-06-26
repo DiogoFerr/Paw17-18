@@ -5,7 +5,6 @@ const Paciente = require("../models/pacienteModel");
 const date = require('dateformat');
 
 function adicionarPaciente(req, callback) {
-
     let NUS = req.sanitize(req.body.NUS);
     let nome = req.sanitize(req.body.nome);
     let data = req.sanitize(req.body.dataNascimento);
@@ -29,7 +28,7 @@ function procurarPacientesTriagem(callback) {
     Paciente.procurarPacientesTriagem(callback);
 }
 
-function procurarPacientesExames(callback){
+function procurarPacientesExames(callback) {
     Paciente.procurarPacientesExames(callback);
 }
 
@@ -47,13 +46,17 @@ function countUserByNUS(NUS, callback) {
 
 function pacientesAtentididosTriagem(userid, callback) {
     Paciente.pacientesAtendidosTriagem(userid, callback);
-
 }
 
-function procurarPacientesRegistoTerminado(callback){
+function pacientesAtentididosConsulta(userid, callback) {
+    Paciente.pacientesAtendidosConsulta(userid, callback);
+}
+
+function procurarPacientesRegistoTerminado(callback) {
     Paciente.procurarPacientesRegistoTerminado(callback);
 }
 
+exports.pacientesAtendidosConsulta = pacientesAtentididosConsulta;
 exports.pacientesAtendidosTriagem = pacientesAtentididosTriagem;
 exports.countUserByNUS = countUserByNUS;
 exports.getUserByNUS = getUserByNUS;

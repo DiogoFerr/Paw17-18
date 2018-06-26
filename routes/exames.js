@@ -75,28 +75,48 @@ router.post('/realizados/:nus', function (req, res) {
 })
 
 router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
-    if (gestao(req, res)) {
+    if (exames(req, res)) {
         let NUS = req.params.nus;
-        let paciente;
+        let pacientes;
+        let descricao = "";
         PacienteController.getUserByNUS(NUS, (err, result) => {
             if (err || err === false) {
                 res.redirect('/erro');
             } else {
                 result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
-                paciente = result[0];
-            }
-        });
-        TipoExamesController.getAllExames((err, result) => {
-            if (err || err == false) {
-                res.redirect('/erro');
-            } else {
-                res.render("fichaPacienteExames", {
-                    exames: result,
-                    paciente: paciente
+                pacientes = result[0];
+                RegistoController.getIdRegistoByNus(NUS, (err, result) => {
+                    if (err || err === false) {
+                        res.redirect('/erro');
+                    } else {
+                        var idRegisto = result[0].idRegisto;
+                        ServicoController.buscarDescricao(idRegisto, (err, result) => {
+                            result.forEach(element => {
+                                if (element.descricao != null || element.descricao != "undefined") {
+                                    descricao = descricao + "" + element.descricao + '\n';
+                                }
+                            });
+                            if (err || err === false) {
+                                res.redirect('/erro');
+                            } else {
+                                TipoExamesController.getAllExames((err, result) => {
+                                    if (err || err == false) {
+                                        res.redirect('/erro');
+                                    } else {
+                                        res.render("fichaPacienteExames", {
+                                            paciente: pacientes,
+                                            descricao: descricao,
+                                            exames: result
+                                        });
+                                    }
+                                })
+
+                            }
+                        });
+                    }
                 });
             }
         });
     }
 });
-
 module.exports = router;

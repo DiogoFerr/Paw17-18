@@ -50,15 +50,37 @@ router.get('/pacientesAtendidos', SessaoController.requireAuth, function (req, r
 });
 
 router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
-    if (triagem(req, res)) {
+    if (exames(req, res)) {
         let NUS = req.params.nus;
+        let pacientes;
+        let descricao = "";
         PacienteController.getUserByNUS(NUS, (err, result) => {
             if (err || err === false) {
                 res.redirect('/erro');
             } else {
                 result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
-                res.render("fichaPaciente", {
-                    paciente: result[0]
+                pacientes = result[0];
+                registoController.getIdRegistoByNus(NUS, (err, result) => {
+                    if (err || err === false) {
+                        res.redirect('/erro');
+                    } else {
+                        var idRegisto = result[0].idRegisto;
+                        servicoController.buscarDescricao(idRegisto, (err, result) => {
+                            result.forEach(element => {
+                                if (element.descricao != null || element.descricao != "undefined") {
+                                    descricao = descricao + " " + element.descricao + '\n';
+                                }
+                            });
+                            if (err || err === false) {
+                                res.redirect('/erro');
+                            } else {
+                                res.render("fichaPaciente", {
+                                    paciente: pacientes,
+                                    descricao: descricao
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });

@@ -15,7 +15,9 @@ block content
             each exame in exames
                 | #{exame.nomeExame}
                 input(type="radio", name= "idExame", value= exame.idTipoExame)
+            label Observaçoes ja feitas
+                textarea(name="done", cols="40",disabled = true, rows="5") #{descricao}
             label Observações
-            textarea(name="descricao", cols="40", rows="5")
+                textarea(name="descricao", cols="40", rows="5") 
             button(id="submit" name="Submeter" value="Submeter") Submeter
         a(href="/exames") Voltar atrás

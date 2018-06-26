@@ -35,12 +35,35 @@ router.get('/', SessaoController.requireAuth, function (req, res) {
 router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
     if (consultas(req, res)) {
         let NUS = req.params.nus;
+        let pacientes;
+        let descricao = "";
         PacienteController.getUserByNUS(NUS, (err, result) => {
             if (err || err === false) {
                 res.redirect('/erro');
             } else {
-                res.render("fichaPacienteConsultas", {
-                    paciente: result[0]
+                result[0].dataNascimento = data(result[0].dataNascimento, "dd-mm-yyyy");
+                pacientes = result[0];
+                RegistoController.getIdRegistoByNus(NUS, (err, result) => {
+                    if (err || err === false) {
+                        res.redirect('/erro');
+                    } else {
+                        var idRegisto = result[0].idRegisto;
+                        ServicoController.buscarDescricao(idRegisto, (err, result) => {
+                            result.forEach(element => {
+                                if (element.descricao != null || element.descricao != "undefined") {
+                                    descricao = descricao + " " + element.descricao + '\n';
+                                }
+                            });
+                            if (err || err === false) {
+                                res.redirect('/erro');
+                            } else {
+                                res.render("fichaPacienteConsultas", {
+                                    paciente: pacientes,
+                                    descricao: descricao
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });
@@ -138,4 +161,23 @@ router.post('/resultado/:nus', function (req, res) {
     }
 });
 
+
+router.get('/pacientesAtendidos', SessaoController.requireAuth, function (req, res) {
+    if (consultas(req, res)) {
+        var userid = req.user[0].idFuncionario;
+        PacienteController.pacientesAtendidosConsulta(userid, (err, result) => {
+            if (err || err === false) {
+                res.end("Erro:" + err);
+            } else {
+                for (let i = 0; i < result.length; i++) {
+                    result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                    result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+                }
+                res.render('pacientesAtendidos', {
+                    pacientes: result
+                });
+            }
+        });
+    }
+});
 module.exports = router;

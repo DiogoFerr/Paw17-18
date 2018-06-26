@@ -21,18 +21,22 @@ function adicionarServicoExamesConsultas(idRegisto, prioridade, callback) {
 }
 
 function terminarServicoExame(req, idFuncionario, idRegisto, callback) {
-    let descricao = req.body.descricao;
+    let descricao = "Exames: " + req.body.descricao;
     let idExame = req.body.idExame;
     servico.terminarServicoExame(idFuncionario, idRegisto, descricao, idExame, callback);
 }
 
 function terminarServicoConsulta(req, idFuncionario, idRegisto, prioridade, callback) {
-    let descricao = req.body.descricao;
+    let descricao = "Consulta: " + req.body.descricao;
     servico.terminarServicoConsulta(idFuncionario, idRegisto, descricao, prioridade, callback);
 }
 
 function setPrioridade(idFuncionario, idRegisto, req, callback) {
     servico.setPrioridade(idFuncionario, idRegisto, req, callback);
+}
+
+function buscarDescricao(idRegisto, callback) {
+    servico.buscarDescricao(idRegisto, callback);
 }
 
 function setToExames(idFuncionario, idRegisto, req, callback) {
@@ -51,6 +55,7 @@ function vericarServico(NUS, callback) {
     servico.verificarServico(NUS, callback);
 }
 
+exports.buscarDescricao = buscarDescricao;
 exports.terminarServicoConsulta = terminarServicoConsulta;
 exports.adicionarServicoExamesConsultas = adicionarServicoExamesConsultas;
 exports.terminarServicoExame = terminarServicoExame;

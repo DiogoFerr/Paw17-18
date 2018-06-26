@@ -20,6 +20,8 @@ block content
             input(type="radio", name="paciente_status", value="Vermelho")
             | Fazer Exames
             input(type="radio", name="paciente_status", checked="true" value="Exame")
+            label Observações Feitas
+            textarea(name="done", cols="40", disabled=true, rows="5") #{descricao}
             label Observações
             textarea(name="descricao", cols="40", rows="5")
             button(id="submit" name="Submeter" value="Submeter") Submeter
