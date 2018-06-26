@@ -12,17 +12,17 @@ function registarServico(NUS, req, res) {
             if (result[0].total === 0) {
                 RegistoController.adicionarRegisto(idPaciente, (err) => {
                     if (err || err === false) {
-                        res.end("Erro: " + err);
+                       res.redirect('/erro');
                     } else {
                         RegistoController.getIdRegistoByNus(NUS, (err, result) => {
                             if (err || err === false) {
-                                res.end("Erro: " + err);
+                               res.redirect('/erro');
                             } else {
                                 var idRegisto = result[0].idRegisto;
                             }
                             ServicoController.adicionarServicoTriagem(idRegisto, (err) => {
                                 if (err || err === false) {
-                                    res.end("Erro: " + err);
+                                   res.redirect('/erro');
                                 } else {
                                     res.redirect('/receccao');
                                 }
@@ -68,7 +68,7 @@ router.post('/novoPaciente', function (req, res) {
     var NUS = req.body.NUS;
     PacienteController.adicionarPaciente(req, (err) => {
         if (err || err === false) {
-            res.end("Erro: " + err);
+           res.redirect('/erro');
         } else {
             registarServico(NUS, req, res);
         }

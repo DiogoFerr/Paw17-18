@@ -4,7 +4,8 @@ function getAllExames(callback) {
     tipoExame.getAllExames(callback);
 }
 
-function adicionarTipoExame(nomeExame, callback) {
+function adicionarTipoExame(req, callback) {
+    let nomeExame = req.body.exame;
     tipoExame.adicionarTipoExame(nomeExame, callback);
 }
 
