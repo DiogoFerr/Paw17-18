@@ -43,20 +43,30 @@ router.get('/pesquisaDepartamento', function (req, res) {
 
 router.post('/mostrarPacientes', function (req, res) {
     let id = req.body.departamento;
-    departamentoController.countNumeroDoentesAtendidosPDepartamento(id ,(err, result) => {
+    departamentoController.countNumeroDoentesAtendidosPDepartamento(id, (err, result) => {
         if (err || err === false) {
             res.end("ERRO: " + err);
         } else {
-            console.log(result[0].total);
-            res.render("mostrarPacientes", {
-                nmrpaciente: result[0].total,
+            departamentoController.getTotalDoentesAtendidosPDepartamento(id, (err, paciente) => {
+                if (err || err === false) {
+                    res.end("ERRO: " + err);
+                } else {
+                    for (let i = 0; i < paciente.length; i++) {
+                        paciente[i].dataEntrada = data(paciente[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                        paciente[i].dataSaida = data(paciente[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+                    }
+                    res.render("mostrarPacientes", {
+                        nmrpaciente: result[0].total,
+                        pacientes: paciente
+                    });
+                }
             });
         }
     });
 });
 
 router.get('/mostrarPacientes', function (req, res) {
-  res.render('mostrarPacientes');
+    res.render('mostrarPacientes');
 });
 
 module.exports = router;

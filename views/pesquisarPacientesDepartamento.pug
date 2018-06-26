@@ -1,7 +1,7 @@
 extends layout
 block content
     h2 Pesquisar por Nome Departamento
-    form(method="POST" action  ="/gestao/mostrarPacientes/")   
+    form(method="POST" action  ="/gestao/mostrarPacientes")   
         | Departamento
         select(name="departamento" id="departamento")
           each departamento in departamentos

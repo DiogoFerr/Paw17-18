@@ -3,10 +3,14 @@ block content
     h2 Número pacientes atendidos #{nmrpaciente}
     table
         tr
-            th NUS
-            th Paciente
-            th Data Entrada
-            th Data Saida
-            th Estado
+            th NUS 
+            th Nome 
+            th Data Entrada 
+            th Data Saida 
+        each paciente in pacientes
             tr
+                td #{paciente.NUS}
+                td #{paciente.nome} 
+                td #{paciente.dataEntrada}
+                td #{paciente.dataSaida}
     a(href="/gestao/pesquisaDepartamento") Voltar
