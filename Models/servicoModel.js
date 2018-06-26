@@ -85,7 +85,7 @@ module.exports.adicionarServicoInternamento = (idRegisto, prioridade, callback) 
 }
 
 module.exports.setPrioridade = (idFuncionario, idRegisto, req, callback) => {
-    descricao = req.body.description;
+    descricao = "Triagem: " + req.body.descricao;
     prioridade = req.body.paciente_status;
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
@@ -98,7 +98,7 @@ module.exports.setPrioridade = (idFuncionario, idRegisto, req, callback) => {
 
 // SE NAO TIVER PRIORIDADE È PQ SE ENCONTRA NOS EXAMES SE NAO ESTA NAS CONSULTAS
 module.exports.setToExames = (idFuncionario, idRegisto, req, callback) => {
-    descricao = req.body.description;
+    descricao = "Triagem: " + req.body.descricao;
     prioridade = req.body.paciente_status;
     var date = new Date();
     var dataSaida = data(date, 'yyyy-mm-dd HH:MM:ss');
@@ -148,6 +148,15 @@ module.exports.terminarServicoConsulta = (idFuncionario, idRegisto, descricao, p
     mySqlModule.query(sql, callback);
 }
 
+
+module.exports.buscarDescricao = (idRegisto, callback) => {
+    var sql = ("SELECT servico.descricao " +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
+        "WHERE registo.idRegisto =" + idRegisto + " AND servico.dataSaida IS NOT NULL");
+    mySqlModule.query(sql, callback);
+}
 module.exports.verificarServico = (NUS, callback) => {
     var sql = ("SELECT servico.tipoServico_idTipoServico, servico.prioridade " +
         "FROM servico " +

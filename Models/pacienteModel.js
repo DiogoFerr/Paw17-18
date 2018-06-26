@@ -103,6 +103,17 @@ module.exports.pacientesAtendidosTriagem = (userid, callback) => {
     mysqlModule.query(sql, callback);
 }
 
+module.exports.pacientesAtendidosConsulta = (userid, callback) => {
+    var datahoje = new Date();
+    datahoje = date(datahoje, "yyyy-mm-dd");
+    var sql = ("SELECT paciente.*, servico.dataEntrada, servico.dataSaida, servico.prioridade " +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.Paciente_idPaciente = paciente.idPaciente " +
+        "WHERE servico.TipoServico_idTipoServico = 3 AND servico.dataSaida LIKE '%" + datahoje + "%' AND servico.Funcionario_idFuncionario =" + userid);
+    mysqlModule.query(sql, callback);
+}
+
 module.exports.procurarPacientesExames = (callback) => {
     var sql = ("SELECT paciente.*, servico.prioridade, servico.dataEntrada " +
             "FROM servico " +

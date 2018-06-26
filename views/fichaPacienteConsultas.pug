@@ -18,6 +18,8 @@ block content
             input(type="radio", name="opcao", value="Internamento")
             | Fazer Exames
             input(type="radio", name="opcao", checked="true" value="Exame")
+            label Observações Feitas
+            textarea(name="done", cols="40", disabled=true, rows="5") #{descricao}
             label Observações
             textarea(name="descricao", cols="40", rows="5")
             button(id="submit" name="Submeter" value="Submeter") Submeter
