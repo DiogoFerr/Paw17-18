@@ -12,6 +12,10 @@ function verificaExistenciaRegisto(nus, callback){
     registo.verificaExistenciaRegisto(nus, callback);
 }
 
+function countAllRegistosTerminados(callback){
+    registo.countAllRegistosTerminados(callback);
+}
+
 function fecharRegisto(idRegisto, callback){
     registo.fecharRegisto(idRegisto, callback);
 }
@@ -30,3 +34,4 @@ exports.verificaExistenciaRegisto = verificaExistenciaRegisto;
 exports.fecharRegisto = fecharRegisto;
 exports.getAllPacientes = getAllPacientes;
 exports.getAllRegistosOfOnePaciente = getAllRegistosOfOnePaciente;
+exports.countAllRegistosTerminados = countAllRegistosTerminados;

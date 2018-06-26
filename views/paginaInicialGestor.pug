@@ -1,0 +1,20 @@
+extends layout
+block content
+    h2 Gestor:
+    h2 Página Gestor - Total Pacientes #{totalPacientes}
+    table
+        tr
+            th NUS
+            th Nome Paciente
+            th Data Entrada
+            th Data Saída
+        each paciente in pacientes
+            tr
+            td #{paciente.NUS}
+            td #{paciente.nome}
+            td #{paciente.dataEntrada}
+            td #{paciente.dataSaida}   
+    
+    a(href="/gestao/pesquisaDepartamento") Pesquisar por Departamento 
+    a(href="/gestao/pesquisaFuncionario") Pesquisar por Funcionario
+    a(class='button' href='/logout') Logout
