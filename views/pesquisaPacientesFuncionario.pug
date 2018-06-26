@@ -1,0 +1,10 @@
+extends layout
+block content
+    h2 Pesquisa doentes atendidos por funcionário
+    form(method="POST" action  ="/gestao/mostrarPacientes")   
+        label
+            | Número Funcionário
+            input(id="numFunc" type="text" name="numFunc")
+        button(id="pesquisar" value="pesquisar") Pesquisar
+    a(href="/gestao") Voltar
+    button(onClick = "location.href='/logout'") Logout

@@ -102,3 +102,12 @@ module.exports.countDoentesAtendidos = (idFuncionario, callback) => {
     mySqlModule.query(sql, callback);
 }
 
+module.exports.getAllDoentesFuncionario = (idFuncionario, callback) => {
+    var sql = ("SELECT paciente.*, servico.dataEntrada, servico.dataSaida " +
+    "FROM servico " +
+    "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+    "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
+    "INNER JOIN funcionario ON servico.funcionario_idFuncionario = idFuncionario " +
+    "WHERE funcionario.idFuncionario =" + idFuncionario);
+    mySqlModule.query(sql, callback);
+}

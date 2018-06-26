@@ -58,8 +58,13 @@ function countDoentesAtendidos(idFuncionario, callback){
     Funcionario.countDoentesAtendidos(idFuncionario, callback);
 }
 
+function getAllDoentesFuncionario(idFuncionario, callback){
+    Funcionario.getAllDoentesFuncionario(idFuncionario, callback);
+}
+
 exports.procurarUtilizadores = procurarUtilizadores;
 exports.adicionarFuncionario = adicionarFuncionario;
 exports.deleteFuncionario = deleteFuncionario;
 exports.editarFuncionario = editarFuncionario;
 exports.countDoentesAtendidos = countDoentesAtendidos;
+exports.getAllDoentesFuncionario = getAllDoentesFuncionario;
