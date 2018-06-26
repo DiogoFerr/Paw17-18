@@ -70,5 +70,5 @@ app.use('/exames', exames);
 app.use('/gestao', gestao);
 
 app.listen(8081, () => {
-    console.log('App Listening on port 8080!');
+    console.log('App Listening on port 8081!');
 });

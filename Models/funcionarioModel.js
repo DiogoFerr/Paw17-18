@@ -98,7 +98,8 @@ module.exports.getUserPassword = (id, callback) => {
 
 //Conta numero de doentes atendidos por um funcionario
 module.exports.countDoentesAtendidos = (idFuncionario, callback) => {
-    var sql = ("SELECT count(servico.idServico) FROM servico WHERE servico.funcionario_idFuncionario =" + idFuncionario);
+   var sql = ("SELECT count(servico.idServico) AS total FROM servico INNER JOIN funcionario ON servico.funcionario_idFuncionario = funcionario.idFuncionario " + 
+    "WHERE funcionario.numFuncionario =" + idFuncionario);
     mySqlModule.query(sql, callback);
 }
 
@@ -107,7 +108,7 @@ module.exports.getAllDoentesFuncionario = (idFuncionario, callback) => {
     "FROM servico " +
     "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
     "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
-    "INNER JOIN funcionario ON servico.funcionario_idFuncionario = idFuncionario " +
-    "WHERE funcionario.idFuncionario =" + idFuncionario);
+    "INNER JOIN funcionario ON servico.funcionario.idFuncionario = funcionario.idFunciario " +
+    "WHERE funcionario.numFuncionario =" + idFuncionario);
     mySqlModule.query(sql, callback);
 }
