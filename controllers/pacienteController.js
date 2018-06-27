@@ -3,7 +3,18 @@ const { check, validationResult } = require('../node_modules/express-validator/c
 
 const Paciente = require("../models/pacienteModel");
 const date = require('dateformat');
+function validatePaciente(req, callback) {
 
+    req.check('NUS', 'O NUS tem de ser numerico e com 9 numeros!').isInt().len(9);
+    req.check('nome', 'O nome é invalido!').matches(/^[a-z ]+$/i).len(3, 45);
+    req.check('tipo', 'O tipo é invalido').isInt({ min: 1, max: 2 });
+    req.check('rua', 'A rua é invalida!').matches(/^[a-z0-9 ]+$/i).len(3, 45);
+    req.check('concelho', 'O concelho é invalido!').matches(/^[a-z ]+$/i).len(3, 45);
+    req.check('distrito', 'O distrito é invalido!').matches(/^[a-z ]+$/i).len(3, 45);
+    req.check('pais', 'O pais é invalido!').matches(/^[a-z ]+$/i).len(3, 45);
+    var errors = req.validationErrors();
+    callback(errors);
+}
 function adicionarPaciente(req, callback) {
     let NUS = req.sanitize(req.body.NUS);
     let nome = req.sanitize(req.body.nome);
@@ -68,6 +79,7 @@ function verServicosPaciente(id, callback){
     Paciente.verServicosPaciente(id, callback);
 }
 
+exports.validatePaciente = validatePaciente;
 exports.pacientesAtendidosConsulta = pacientesAtentididosConsulta;
 exports.pacientesAtendidosTriagem = pacientesAtentididosTriagem;
 exports.countUserByNUS = countUserByNUS;

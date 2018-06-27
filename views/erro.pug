@@ -1,4 +1,7 @@
 extends layout
 block content
     h2 Algo de errado não está certo
+    if erros
+        each erro in erros
+            p #{erro.msg}
     a(href="/login") Voltar atrás

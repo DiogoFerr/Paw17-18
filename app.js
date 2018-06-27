@@ -4,6 +4,7 @@ var expressSanitizer = require('express-sanitizer');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const app = express();
+app.use(expressValidator());
 
 //PASSPORT AUTH
 const flash = require('connect-flash');
