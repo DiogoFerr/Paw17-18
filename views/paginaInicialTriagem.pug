@@ -11,5 +11,7 @@ block content
                 td #{paciente.NUS} 
                 td
                     a(href="/triagem/perfilPaciente/" + paciente.NUS)  #{paciente.nome}
-    button(onClick = "location.href='/triagem/pacientesAtendidos'") Pacientes Atendidos
-    button(onClick = "location.href='/logout'") Logout
+    button(id="pacientesAtendidos") Pacientes Atendidos
+    button(id="logout") Logout
+    script
+      include ../utils/scripts/buttonsScripts.js

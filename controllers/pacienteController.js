@@ -67,6 +67,14 @@ function procurarPacientesRegistoTerminado(callback) {
     Paciente.procurarPacientesRegistoTerminado(callback);
 }
 
+function pacienteByNusRegistoTerminado(nus, callback){
+    Paciente.pacienteByNusRegistoTerminado(nus, callback);
+}
+
+function verServicosPaciente(id, callback){
+    Paciente.verServicosPaciente(id, callback);
+}
+
 exports.validatePaciente = validatePaciente;
 exports.pacientesAtendidosConsulta = pacientesAtentididosConsulta;
 exports.pacientesAtendidosTriagem = pacientesAtentididosTriagem;
@@ -77,3 +85,5 @@ exports.procurarPacientesConsultas = procurarPacientesConsultas;
 exports.adicionarPaciente = adicionarPaciente;
 exports.procurarPacientesExames = procurarPacientesExames;
 exports.procurarPacientesRegistoTerminado = procurarPacientesRegistoTerminado;
+exports.pacienteByNusRegistoTerminado = pacienteByNusRegistoTerminado;
+exports.verServicosPaciente = verServicosPaciente;

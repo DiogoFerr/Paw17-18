@@ -133,6 +133,20 @@ module.exports.procurarPacientesRegistoTerminado = (callback) => {
     var sql = ("SELECT paciente.*, registo.dataEntrada, registo.dataSaida " +
     "FROM paciente " +
     "INNER JOIN registo ON paciente.idPaciente = registo.paciente_idpaciente " +
-    "WHERE dataEntrada IS NOT NULL AND dataSaida IS NOT NULL");
+    "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL");
+    mysqlModule.query(sql, callback);
+}
+
+module.exports.pacienteByNusRegistoTerminado = (nus, callback) => {
+    var sql = ("SELECT * FROM registo INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
+    "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL AND paciente.NUS = " + nus);
+    mysqlModule.query(sql, callback);
+}
+
+module.exports.verServicosPaciente = (id, callback) => {
+    var sql =("SELECT servico.*, tiposervico.descricao as obs " +
+    "FROM servico " + 
+    "INNER JOIN tiposervico ON servico.tipoServico_idTipoServico = tiposervico.idTipoServico " +
+    "WHERE servico.Registo_idRegisto =" + id);
     mysqlModule.query(sql, callback);
 }
