@@ -1,0 +1,19 @@
+extends layout
+block content
+    h2 Todos os Pacientes
+    table
+        tr
+            th Registo
+            th NUS Paciente
+            th Data Entrada
+            th Data Saida
+            th Serviços
+        each paciente in pacientes
+            tr
+                td #{paciente.idRegisto}
+                td #{paciente.NUS}
+                td #{paciente.dataEntrada}   
+                td #{paciente.dataSaida}
+                td
+                    a(href="/admin/verServicosPaciente/" + paciente.idRegisto) Ver Serviços
+    a(href="/admin") Voltar

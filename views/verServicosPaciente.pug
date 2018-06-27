@@ -1,0 +1,19 @@
+extends layout
+block content
+    h2 Todos os Pacientes
+    table
+        tr
+            th idServico
+            th nomeServico
+            th observacoes
+            th Data Entrada
+            th Data Saida
+        each paciente in pacientes
+            tr
+                td #{paciente.idServico}
+                td #{paciente.obs}
+                td #{paciente.descricao}
+                td #{paciente.dataEntrada}   
+                td #{paciente.dataSaida}
+                
+    a(href="/admin") Voltar

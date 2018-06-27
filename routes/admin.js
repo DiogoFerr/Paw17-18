@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const PacienteController = require("../controllers/pacienteController")
 const FuncController = require("../controllers/funcionarioController");
 const DepartamentoController = require("../controllers/departamentoController");
 const TipoFuncController = require("../controllers/tipoFuncionarioController");
 const TipoExamesController = require("../controllers/tipoExameController");
 const SessaoController = require("../controllers/SessaoController");
+const data = require('dateformat');
 const numeroAdmin = 1;
 
 function admin(req, res) {
@@ -111,6 +113,61 @@ router.get('/deleteFuncionario', SessaoController.requireAuth, function (req, re
             } else {
                 res.redirect("/admin");
             }
+        });
+    }
+});
+
+router.get('/pacientesAdmin', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        PacienteController.procurarPacientesRegistoTerminado((err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            } else {
+                for (let i = 0; i < result.length; i++) {
+                    result[i].dataNascimento = data(result[i].dataNascimento, "dd-mm-yyyy");
+                }
+                res.render('pacientesAdmin', {
+                    pacientes: result
+                });
+            }
+        });
+    }
+});
+
+router.get('/registosPacienteAdmin/:nus', SessaoController.requireAuth, function (req, res) {
+    if (admin(req, res)) {
+        let nus = req.params.nus;
+        PacienteController.pacienteByNusRegistoTerminado(nus, (err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            };
+            for (let i = 0; i < result.length; i++) {
+                result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+            }
+            res.render('registosPacienteAdmin', {
+                pacientes: result
+            });
+        });
+    }
+});
+
+router.get('/verServicosPaciente/:id', SessaoController.requireAuth, function (req, res) {
+    let idRegisto = req.params.id;
+    if (admin(req, res)) {
+        let nus = req.params.nus;
+        PacienteController.verServicosPaciente(idRegisto, (err, result) => {
+            if (err || err === false) {
+                res.redirect('/erro');
+            };
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+                result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+            }
+            res.render('verServicosPaciente', {
+                pacientes: result
+            });
         });
     }
 });

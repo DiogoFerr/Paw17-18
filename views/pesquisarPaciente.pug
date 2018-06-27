@@ -6,6 +6,7 @@ block content
             | Numero de Utente
             input(type="text" name="NUS" id ="NUS" maxLength="9" required="true")
         button(id="pesquisar" value="pesquisar") Pesquisar
+    a(href="/logout") Logout
     script
         include ../utils/scripts/validatorPesPaciente.js
-    button(onClick = "location.href='/logout'") Logout
+    
