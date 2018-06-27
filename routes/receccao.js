@@ -75,13 +75,21 @@ router.get('/novoPaciente', SessaoController.requireAuth, function (req, res) {
 
 router.post('/novoPaciente', function (req, res) {
     var NUS = req.body.NUS;
-    PacienteController.adicionarPaciente(req, (err) => {
-        if (err || err === false) {
-            res.redirect('/erro');
+    PacienteController.validatePaciente(req, (err) => {
+        console.log(err);
+        if (err && err != false) {
+            res.render('erro', {
+                erros: err
+            });
         } else {
-            registarServico(NUS, req, res);
+            PacienteController.adicionarPaciente(req, (err) => {
+                if (err || err === false) {
+                    res.redirect('/erro');
+                } else {
+                    registarServico(NUS, req, res);
+                }
+            });
         }
     });
 });
-
 module.exports = router;
