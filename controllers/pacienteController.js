@@ -52,6 +52,10 @@ function pacientesAtentididosConsulta(userid, callback) {
     Paciente.pacientesAtendidosConsulta(userid, callback);
 }
 
+function pacientesAtendidosExame(userid, callback) {
+    Paciente.pacientesAtendidosExame(userid, callback);
+}
+
 function procurarPacientesRegistoTerminado(callback) {
     Paciente.procurarPacientesRegistoTerminado(callback);
 }
@@ -75,3 +79,4 @@ exports.procurarPacientesExames = procurarPacientesExames;
 exports.procurarPacientesRegistoTerminado = procurarPacientesRegistoTerminado;
 exports.pacienteByNusRegistoTerminado = pacienteByNusRegistoTerminado;
 exports.verServicosPaciente = verServicosPaciente;
+exports.pacientesAtendidosExame = pacientesAtendidosExame;

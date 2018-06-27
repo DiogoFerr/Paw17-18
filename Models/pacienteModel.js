@@ -114,39 +114,50 @@ module.exports.pacientesAtendidosConsulta = (userid, callback) => {
     mysqlModule.query(sql, callback);
 }
 
+module.exports.pacientesAtendidosExame = (userid, callback) => {
+    var datahoje = new Date();
+    datahoje = date(datahoje, "yyyy-mm-dd");
+    var sql = ("SELECT paciente.*, servico.dataEntrada, servico.dataSaida, servico.prioridade " +
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.Paciente_idPaciente = paciente.idPaciente " +
+        "WHERE (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 4) AND servico.dataSaida LIKE '%" + datahoje + "%' AND servico.Funcionario_idFuncionario =" + userid);
+    mysqlModule.query(sql, callback);
+}
+
 module.exports.procurarPacientesExames = (callback) => {
     var sql = ("SELECT paciente.*, servico.prioridade, servico.dataEntrada " +
-            "FROM servico " +
-            "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
-            "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
-            "WHERE (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 4) AND servico.dataSaida IS NULL " +
-            "ORDER BY " +
-            "(CASE " +
-            "WHEN (servico.prioridade = 'Vermelho') THEN 1 " +
-            "WHEN (servico.prioridade = 'Amarelo') THEN 2 " +
-            "WHEN (servico.prioridade = 'Verde') THEN 3 " +
-            "END), servico.dataEntrada");
+        "FROM servico " +
+        "INNER JOIN registo ON servico.Registo_idRegisto = registo.idRegisto " +
+        "INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
+        "WHERE (servico.TipoServico_idTipoServico = 2 OR servico.TipoServico_idTipoServico = 4) AND servico.dataSaida IS NULL " +
+        "ORDER BY " +
+        "(CASE " +
+        "WHEN (servico.prioridade = 'Vermelho') THEN 1 " +
+        "WHEN (servico.prioridade = 'Amarelo') THEN 2 " +
+        "WHEN (servico.prioridade = 'Verde') THEN 3 " +
+        "END), servico.dataEntrada");
     mysqlModule.query(sql, callback);
 }
 
 module.exports.procurarPacientesRegistoTerminado = (callback) => {
     var sql = ("SELECT paciente.*, registo.dataEntrada, registo.dataSaida " +
-    "FROM paciente " +
-    "INNER JOIN registo ON paciente.idPaciente = registo.paciente_idpaciente " +
-    "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL");
+        "FROM paciente " +
+        "INNER JOIN registo ON paciente.idPaciente = registo.paciente_idpaciente " +
+        "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL");
     mysqlModule.query(sql, callback);
 }
 
 module.exports.pacienteByNusRegistoTerminado = (nus, callback) => {
     var sql = ("SELECT * FROM registo INNER JOIN paciente ON registo.paciente_idpaciente = paciente.idPaciente " +
-    "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL AND paciente.NUS = " + nus);
+        "WHERE registo.dataEntrada IS NOT NULL AND registo.dataSaida IS NOT NULL AND paciente.NUS = " + nus);
     mysqlModule.query(sql, callback);
 }
 
 module.exports.verServicosPaciente = (id, callback) => {
-    var sql =("SELECT servico.*, tiposervico.descricao as obs " +
-    "FROM servico " + 
-    "INNER JOIN tiposervico ON servico.tipoServico_idTipoServico = tiposervico.idTipoServico " +
-    "WHERE servico.Registo_idRegisto =" + id);
+    var sql = ("SELECT servico.*, tiposervico.descricao as obs " +
+        "FROM servico " +
+        "INNER JOIN tiposervico ON servico.tipoServico_idTipoServico = tiposervico.idTipoServico " +
+        "WHERE servico.Registo_idRegisto =" + id);
     mysqlModule.query(sql, callback);
 }

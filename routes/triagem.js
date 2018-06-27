@@ -50,7 +50,7 @@ router.get('/pacientesAtendidos', SessaoController.requireAuth, function (req, r
 });
 
 router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, res) {
-    if (exames(req, res)) {
+    if (triagem(req, res)) {
         let NUS = req.params.nus;
         let pacientes;
         let descricao = "";

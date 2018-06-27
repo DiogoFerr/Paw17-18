@@ -119,4 +119,24 @@ router.get('/perfilPaciente/:nus', SessaoController.requireAuth, function (req, 
         });
     }
 });
+
+router.get('/pacientesAtendidos', SessaoController.requireAuth, function (req, res){
+    if (exames(req, res)) {
+        var userid = req.user[0].idFuncionario;
+        PacienteController.pacientesAtendidosExame(userid, (err, result) => {
+            if (err || err === false) {
+                res.end("Erro:" + err);
+            } else {
+                for (let i = 0; i < result.length; i++) {
+                    result[i].dataEntrada = data(result[i].dataEntrada, "dd-mm-yyyy HH:MM:ss");
+                    result[i].dataSaida = data(result[i].dataSaida, "dd-mm-yyyy HH:MM:ss");
+                }
+                res.render('pacientesAtendidos', {
+                    pacientes: result
+                });
+            }
+        });
+    }
+});
+
 module.exports = router;
